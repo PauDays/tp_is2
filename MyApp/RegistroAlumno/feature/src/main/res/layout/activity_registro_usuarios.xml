@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegistroUsuariosActivity">
+
+    <TextView
+        android:id="@+id/passUsuTxt"
+        android:layout_width="364dp"
+        android:layout_height="29dp"
+        android:text="contrasenha"
+        tools:layout_editor_absoluteX="4dp"
+        tools:layout_editor_absoluteY="145dp" />
+
+    <TextView
+        android:id="@+id/mailUsuTxt"
+        android:layout_width="364dp"
+        android:layout_height="29dp"
+        android:text="correo"
+        tools:layout_editor_absoluteX="4dp"
+        tools:layout_editor_absoluteY="101dp" />
+
+    <TextView
+        android:id="@+id/apeUsuTxt"
+        android:layout_width="364dp"
+        android:layout_height="29dp"
+        android:text="Apellido de Usuario"
+        tools:layout_editor_absoluteX="4dp"
+        tools:layout_editor_absoluteY="60dp" />
+
+    <TextView
+        android:id="@+id/nomUsuTxt"
+        android:layout_width="364dp"
+        android:layout_height="29dp"
+        android:text="Nombre de Usuario"
+        tools:layout_editor_absoluteX="4dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <Button
+        android:id="@+id/registrarUsuBt"
+        android:layout_width="156dp"
+        android:layout_height="wrap_content"
+        android:text="Registrar"
+        tools:layout_editor_absoluteX="78dp"
+        tools:layout_editor_absoluteY="203dp" />
+</android.support.constraint.ConstraintLayout>
