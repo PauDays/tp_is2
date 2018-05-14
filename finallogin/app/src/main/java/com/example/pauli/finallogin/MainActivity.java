@@ -90,8 +90,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 Toast.makeText(this,"Los datos ingresados no coinciden", 25000).show();
 
             }else{
-                //startActivity(intent);
+
+
                 Toast.makeText(this,"Login correcto", 25000).show();
+                intent = new Intent(MainActivity.this,vistaUsuarios.class);
+                startActivity(intent);
             }
 
         }
