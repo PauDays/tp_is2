@@ -34,12 +34,12 @@ public class RegistroUsuarios extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_usuarios);
 
-        btRegistrarUsu = (Button) findViewById(R.id.registrarUsuBt);
-        etNomUsu = (EditText) findViewById(R.id.nomUsuTxt);
-        etApeUsu = (EditText) findViewById(R.id.apeUsuTxt);
-        etUsu = (EditText) findViewById(R.id.usuTxt);
-        etMailUsu = (EditText) findViewById(R.id.mailUsuTxt);
-        etPassUsu = (EditText) findViewById(R.id.passUsuTxt);
+        btRegistrarUsu = findViewById(R.id.registrarUsuBt);
+        etNomUsu = findViewById(R.id.nomUsuTxt);
+        etApeUsu = findViewById(R.id.apeUsuTxt);
+        etUsu = findViewById(R.id.usuTxt);
+        etMailUsu = findViewById(R.id.mailUsuTxt);
+        etPassUsu = findViewById(R.id.passUsuTxt);
         btRegistrarUsu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

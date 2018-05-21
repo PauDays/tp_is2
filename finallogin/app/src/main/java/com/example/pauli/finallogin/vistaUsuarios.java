@@ -17,7 +17,7 @@ public class vistaUsuarios extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vista_usuarios);
-        lv1 =(ListView)findViewById(R.id.menuList);
+        lv1 = findViewById(R.id.menuList);
         ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, opciones);
         lv1.setAdapter(adapter);
         lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {

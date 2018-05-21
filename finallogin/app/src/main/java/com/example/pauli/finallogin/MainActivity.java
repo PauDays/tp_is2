@@ -45,13 +45,14 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+       // setContentView(R.layout.activity_main);
         setContentView(R.layout.activity_main);
 
         // Login button clicked
         ok = findViewById(R.id.btn_login);
         ok.setOnClickListener(this); ///////acaaaa fue el último cambio
 
-        result =findViewById(R.id.lbl_result);
+        //result =findViewById(R.id.lbl_result);
     }
 
        @Override
@@ -60,15 +61,15 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             Login();
         }
     }
-    /*Metodo que sera llamado cuando el usuario haga click en el boton login*/
+    
     @SuppressLint("WrongConstant")
     public void Login(){
         //recupera los valores ingresados por el usuario
-        Intent intent = new Intent(this, MainActivity.class);
-        EditText editTextUserName = (EditText) findViewById(R.id.txt_username);
-        EditText editTextPassword = (EditText) findViewById(R.id.txt_password);
+
+        EditText editTextUserName = findViewById(R.id.txt_username);
+        EditText editTextPassword = findViewById(R.id.txt_password);
         String message;
-        //crea el objeto json que se enviara con la peticion
+        
         JSONObject loginParams = new JSONObject();
 
         try {
@@ -82,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         StrictMode.setThreadPolicy(policy);
         try {
             message = executePost("http://192.168.0.36:8084/scrumRestfinal/webresources/org.scrumrestfinal.entities.usuarios/login", loginParams.toString());
+            Intent intent = new Intent(this, RegistroUsuarios.class);
             if (message.equals("")){
                 Toast.makeText(this,"FAILED LOGIN", 5).show();
                 return;
@@ -91,9 +93,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
             }else{
 
-
                 Toast.makeText(this,"Login correcto", 25000).show();
-                intent = new Intent(MainActivity.this,vistaUsuarios.class);
                 startActivity(intent);
             }
 
@@ -103,7 +103,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         }
 
     }
-    /*Metodo que realiza la conexion con el servidor y solicita el servicio post del login*/
     @SuppressLint("WrongConstant")
     public String executePost(String targetURL, String urlParameters) {
         int timeout=15000;

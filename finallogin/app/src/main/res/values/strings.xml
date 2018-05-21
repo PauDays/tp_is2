@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">finallogin</string>
+    <string name="String_username">Username</string>
+    <string name="string_password">Password</string>
+    <string name="string_login">Login</string>
+    <string name="string_bienvenido">Bienvenido</string>
+    <string name="string_nombre_de_usuario">nombre de usuario</string>
+    <string name="string_contrasenha">contrasenhsa</string>
+    <string name="string_pass">contrasenha</string>
 </resources>
