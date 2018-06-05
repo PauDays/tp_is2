@@ -1,1 +1,4 @@
-# tp_is2
+# Integrantes:
+* Paula Romero
+* Miguel Rolon
+* Nilcia Vanessa Valdez González
