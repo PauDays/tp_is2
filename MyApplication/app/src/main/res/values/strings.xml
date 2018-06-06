@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">My Application</string>
-    <string name="ingresar_usuario">ingresar un mensaje</string>
-    <string name="botón_enviar">enviar</string>
-    <string name="ingresar_contrasenha">Ingresar contrasenha</string>
-</resources>
