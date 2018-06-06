@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="scrumRestfinalPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>org.scrumRestfinal.entities.Roles</class>
+    <class>org.scrumRestfinal.entities.Proyectos</class>
+    <class>org.scrumRestfinal.entities.Usuarios</class>
+    <class>org.scrumRestfinal.entities.UsersHistories</class>
+    <class>org.scrumRestfinal.entities.Estados</class>
+    <class>org.scrumRestfinal.entities.Baklogs</class>
+    <class>org.scrumRestfinal.entities.Permisos</class>
+    <class>org.scrumRestfinal.entities.Equipos</class>
+    <class>org.scrumRestfinal.entities.Sprints</class>
+    <class>org.scrumRestfinal.entities.UsuariosRoles</class>
+    <class>org.scrumRestfinal.entities.RolesPermisos</class>
+    <class>org.scrumRestfinal.entities.Kambam</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/scrumdb"/>
+      <property name="javax.persistence.jdbc.user" value="postgres"/>
+      <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="postgres"/>
+    </properties>
+  </persistence-unit>
+</persistence>

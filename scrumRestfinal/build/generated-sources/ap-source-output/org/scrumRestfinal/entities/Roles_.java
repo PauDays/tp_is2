@@ -7,7 +7,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 import org.scrumRestfinal.entities.RolesPermisos;
 import org.scrumRestfinal.entities.UsuariosRoles;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-05-13T18:19:58")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-06-06T19:26:07")
 @StaticMetamodel(Roles.class)
 public class Roles_ { 
 

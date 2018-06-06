@@ -12,6 +12,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -33,6 +35,12 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Sprints.findByDuracion", query = "SELECT s FROM Sprints s WHERE s.duracion = :duracion")})
 public class Sprints implements Serializable {
 
+    @Column(name = "duracion")
+    private Integer duracion;
+    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
+    @ManyToOne
+    private Usuarios idUsuario;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -41,9 +49,6 @@ public class Sprints implements Serializable {
     @Basic(optional = false)
     @Column(name = "nombre_sprint")
     private String nombreSprint;
-    @Basic(optional = false)
-    @Column(name = "duracion")
-    private int duracion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSprint")
     private Collection<UsersHistories> usersHistoriesCollection;
 
@@ -76,13 +81,6 @@ public class Sprints implements Serializable {
         this.nombreSprint = nombreSprint;
     }
 
-    public int getDuracion() {
-        return duracion;
-    }
-
-    public void setDuracion(int duracion) {
-        this.duracion = duracion;
-    }
 
     @XmlTransient
     public Collection<UsersHistories> getUsersHistoriesCollection() {
@@ -116,6 +114,22 @@ public class Sprints implements Serializable {
     @Override
     public String toString() {
         return "org.scrumRestfinal.entities.Sprints[ idSprint=" + idSprint + " ]";
+    }
+
+    public Integer getDuracion() {
+        return duracion;
+    }
+
+    public void setDuracion(Integer duracion) {
+        this.duracion = duracion;
+    }
+
+    public Usuarios getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Usuarios idUsuario) {
+        this.idUsuario = idUsuario;
     }
     
 }

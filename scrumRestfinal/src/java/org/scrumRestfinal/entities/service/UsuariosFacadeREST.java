@@ -20,13 +20,12 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import org.scrumRestfinal.entities.Usuarios;
 
 /**
  *
- * @author Pauli
+ * @author Sara Chamorro
  */
 @Stateless
 @Path("org.scrumrestfinal.entities.usuarios")
@@ -89,7 +88,7 @@ public class UsuariosFacadeREST extends AbstractFacade<Usuarios> {
 
     @Override
     protected EntityManager getEntityManager() {
-        return em=Persistence.createEntityManagerFactory("scrumRestfinalPU").createEntityManager();
+           return em=Persistence.createEntityManagerFactory("scrumRestfinalPU").createEntityManager();
     }
     
      //////
@@ -135,23 +134,26 @@ public class UsuariosFacadeREST extends AbstractFacade<Usuarios> {
         
         return result;
     }
-     @DELETE
-    @Path("/eliminarUsu")
+     
+    @DELETE
+    @Path("/del/{id}")
     @Produces("text/plain")
-    public String eliminarUsu(@QueryParam("usuario") String usuario) throws ClassNotFoundException, SQLException {
+    public String eliminarUsu(@PathParam("usuario") String usuario) throws ClassNotFoundException, SQLException {
+        System.err.println("usuario: "+usuario);
         uservice.eliminarUsu(usuario);
         String result = "Usuario eliminado correctamente!";
         return result;
     }
+    
      @PUT
-    @Path("/editarUsu")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/editarusuario/{usuario}")
+    @Consumes({MediaType.APPLICATION_JSON})
     @Produces("text/plain")
-    public String editarUsu(@QueryParam("usuario") String usuario, Usuarios user) throws SQLException, ClassNotFoundException {
-        uservice.editarUsu(usuario, user);
+    public String editUsuario(@PathParam("usuario") String usuario, Usuarios usuarios) throws SQLException, ClassNotFoundException {
+        System.out.println("Nombre: " + usuario);
+        uservice.editarUsu(usuario, usuarios);
         String result = "Usuario modificado correctamente!";
         return result;
     }
-    
     
 }

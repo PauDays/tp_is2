@@ -27,7 +27,7 @@ public class usuSer {
     }
     
    void addUsuario(Usuarios u) throws SQLException, ClassNotFoundException {
-        String sql="insert into \"usuarios\" (id_usuario,nombre,apellido,usuario, mail,contrasenha) values(?,?,?,?,?,?)";
+        String sql="insert into \"usuarios\" (id_usuario,nombre,apellido,usuario,contrasenha, mail) values(?,?,?,?,?,?)";
         conex = con.conectarBD();
             
         PreparedStatement pst=conex.prepareStatement(sql);
@@ -35,8 +35,8 @@ public class usuSer {
         pst.setString(2,u.getNombre());
         pst.setString(3,u.getApellido());
         pst.setString(4,u.getUsuario());
-        pst.setString(5,u.getMail());
-        pst.setString(6,u.getContrasenha());
+        pst.setString(5,u.getContrasenha());
+        pst.setString(6,u.getMail());
         
         pst.execute();
         pst.close();
@@ -48,10 +48,13 @@ public class usuSer {
         ArrayList<Usuarios> lista = new ArrayList();
         conex = con.conectarBD();
         Statement st = conex.createStatement();
-        ResultSet rs = st.executeQuery("select nombre,mail from \"usuarios\"");
+        ResultSet rs = st.executeQuery("select id_usuario, nombre, apellido, usuario, contrasenha, mail from \"usuarios\"");
         while (rs.next()) {
             Usuarios tm = new Usuarios ();
             tm.setNombre(rs.getString("nombre"));
+            tm.setApellido(rs.getString("apellido"));
+            tm.setUsuario(rs.getString("usuario"));
+            tm.setContrasenha(rs.getString("contrasenha"));
             tm.setMail(rs.getString("mail"));
             lista.add(tm);
         }
@@ -103,15 +106,17 @@ public class usuSer {
         con.cerrarBD();
     }
      public void editarUsu(String nomUsu,Usuarios user) throws SQLException, ClassNotFoundException {
-        String sql = "update \"usuarios\" set nombre = ?, apellido=?, mail = ?, usuario=? where usuario = ?";
+        String sql = "update usuarios set nombre = ?, apellido=?, usuario=?, contrasenha=?, mail = ? where usuario = ?";
         conex = con.conectarBD();
-        
+         
         PreparedStatement pst = conex.prepareStatement(sql);
         pst.setString(1, user.getNombre());
         pst.setString(2, user.getApellido());
-        pst.setString(3, user.getMail());
-        pst.setString(4, user.getUsuario());
-        pst.setString(5, nomUsu);
+        pst.setString(3, user.getUsuario());
+        pst.setString(4, user.getContrasenha());
+        pst.setString(5, user.getMail());
+        pst.setString(6, nomUsu);
+        System.out.println("ps: "+pst);
         pst.executeUpdate();
         pst.close();
         conex.close();

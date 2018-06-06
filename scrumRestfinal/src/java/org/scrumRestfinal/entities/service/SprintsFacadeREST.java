@@ -6,6 +6,7 @@
 package org.scrumRestfinal.entities.service;
 
 import java.util.List;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
@@ -21,9 +22,9 @@ import org.scrumRestfinal.entities.Sprints;
 
 /**
  *
- * @author Pauli
+ * @author Sara Chamorro
  */
-@javax.ejb.Stateless
+@Stateless
 @Path("org.scrumrestfinal.entities.sprints")
 public class SprintsFacadeREST extends AbstractFacade<Sprints> {
 

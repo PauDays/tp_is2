@@ -32,11 +32,14 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Usuarios.findByNombre", query = "SELECT u FROM Usuarios u WHERE u.nombre = :nombre")
     , @NamedQuery(name = "Usuarios.findByApellido", query = "SELECT u FROM Usuarios u WHERE u.apellido = :apellido")
     , @NamedQuery(name = "Usuarios.findByUsuario", query = "SELECT u FROM Usuarios u WHERE u.usuario = :usuario")
-    , @NamedQuery(name = "Usuarios.findByTelefono", query = "SELECT u FROM Usuarios u WHERE u.telefono = :telefono")
+    //, @NamedQuery(name = "Usuarios.findByTelefono", query = "SELECT u FROM Usuarios u WHERE u.telefono = :telefono")
     , @NamedQuery(name = "Usuarios.findByContrasenha", query = "SELECT u FROM Usuarios u WHERE u.contrasenha = :contrasenha")
-    , @NamedQuery(name = "Usuarios.findByDireccion", query = "SELECT u FROM Usuarios u WHERE u.direccion = :direccion")
+    //, @NamedQuery(name = "Usuarios.findByDireccion", query = "SELECT u FROM Usuarios u WHERE u.direccion = :direccion")
     , @NamedQuery(name = "Usuarios.findByMail", query = "SELECT u FROM Usuarios u WHERE u.mail = :mail")})
 public class Usuarios implements Serializable {
+
+    @OneToMany(mappedBy = "idUsuario")
+    private Collection<Sprints> sprintsCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -52,15 +55,15 @@ public class Usuarios implements Serializable {
     @Basic(optional = false)
     @Column(name = "usuario")
     private String usuario;
-    @Basic(optional = false)
-    @Column(name = "telefono")
-    private String telefono;
+    //@Basic(optional = false)
+    //@Column(name = "telefono")
+    //private String telefono;
     @Basic(optional = false)
     @Column(name = "contrasenha")
     private String contrasenha;
-    @Basic(optional = false)
-    @Column(name = "direccion")
-    private String direccion;
+    //@Basic(optional = false)
+    //@Column(name = "direccion")
+    //private String direccion;
     @Basic(optional = false)
     @Column(name = "mail")
     private String mail;
@@ -76,14 +79,14 @@ public class Usuarios implements Serializable {
         this.idUsuario = idUsuario;
     }
 
-    public Usuarios(Integer idUsuario, String nombre, String apellido, String usuario, String telefono, String contrasenha, String direccion, String mail) {
+    public Usuarios(Integer idUsuario, String nombre, String apellido, String usuario, String contrasenha,  String mail) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.apellido = apellido;
         this.usuario = usuario;
-        this.telefono = telefono;
+        //this.telefono = telefono;
         this.contrasenha = contrasenha;
-        this.direccion = direccion;
+        //this.direccion = direccion;
         this.mail = mail;
     }
 
@@ -119,28 +122,12 @@ public class Usuarios implements Serializable {
         this.usuario = usuario;
     }
 
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
     public String getContrasenha() {
         return contrasenha;
     }
 
     public void setContrasenha(String contrasenha) {
         this.contrasenha = contrasenha;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
     }
 
     public String getMail() {
@@ -151,7 +138,7 @@ public class Usuarios implements Serializable {
         this.mail = mail;
     }
 
-    @XmlTransient
+   /* @XmlTransient
     public Collection<UsuariosRoles> getUsuariosRolesCollection() {
         return usuariosRolesCollection;
     }
@@ -167,7 +154,7 @@ public class Usuarios implements Serializable {
 
     public void setEquiposCollection(Collection<Equipos> equiposCollection) {
         this.equiposCollection = equiposCollection;
-    }
+    }*/
 
     @Override
     public int hashCode() {
@@ -192,6 +179,15 @@ public class Usuarios implements Serializable {
     @Override
     public String toString() {
         return "org.scrumRestfinal.entities.Usuarios[ idUsuario=" + idUsuario + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Sprints> getSprintsCollection() {
+        return sprintsCollection;
+    }
+
+    public void setSprintsCollection(Collection<Sprints> sprintsCollection) {
+        this.sprintsCollection = sprintsCollection;
     }
     
 }
