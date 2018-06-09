@@ -21,7 +21,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import org.scrumRestfinal.entities.Roles;
 import org.scrumRestfinal.entities.Usuarios;
+import org.scrumRestfinal.entities.UsuariosRoles;
 
 /**
  *
@@ -104,6 +106,13 @@ public class UsuariosFacadeREST extends AbstractFacade<Usuarios> {
         return uservice.getUsers();
     }
     
+    @GET
+    @Path("/getroles")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ArrayList<Roles> getRoles() throws ClassNotFoundException, SQLException {
+        return uservice.getRol();
+    }
+    
     @POST
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -121,6 +130,19 @@ public class UsuariosFacadeREST extends AbstractFacade<Usuarios> {
        
      
     }
+    
+    @POST
+    @Path("/addRolUsuario")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces("text/plain")
+    public String addRolUser(UsuariosRoles ur) throws SQLException, ClassNotFoundException {
+       
+        uservice.addUsuariosRol(ur);
+        String result = "Usuario guardado: " + ur.getIdUsuario();
+        
+        return result;
+    }
+    
      @POST
     @Path("/adduser")
     @Consumes(MediaType.APPLICATION_JSON)

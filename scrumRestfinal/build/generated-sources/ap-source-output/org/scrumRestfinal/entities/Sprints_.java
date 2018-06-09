@@ -6,7 +6,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import org.scrumRestfinal.entities.Usuarios;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-06-09T12:05:39")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-06-09T16:24:39")
 @StaticMetamodel(Sprints.class)
 public class Sprints_ { 
 

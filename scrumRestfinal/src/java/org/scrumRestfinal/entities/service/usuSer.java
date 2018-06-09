@@ -62,16 +62,15 @@ public class usuSer {
         con.cerrarBD();    
     }
    
-    public ArrayList<UsuariosRoles> getUsersRol() throws SQLException, ClassNotFoundException {
-        ArrayList<UsuariosRoles> lista = new ArrayList();
+    public ArrayList<Roles> getUsersRol() throws SQLException, ClassNotFoundException {
+        ArrayList<Roles> lista = new ArrayList();
         conex = con.conectarBD();
         Statement st = conex.createStatement();
-        ResultSet rs = st.executeQuery("select id_usuario_rol, id_rol, id_usuario from usuarios_roles");
+        ResultSet rs = st.executeQuery("SELECT id_rol, nombre_rol FROM public.roles");
         while (rs.next()) {
-            UsuariosRoles tm = new UsuariosRoles ();
-            tm.setIdUsuarioRol(rs.getInt(1));
-            tm.setIdRol((Roles) rs.getObject(2));
-            tm.setIdUsuario((Usuarios) rs.getObject(3));
+            Roles tm = new Roles ();
+            tm.setIdRol(rs.getInt(1));
+            tm.setNombreRol(rs.getString(2));
             lista.add(tm);
         }
         conex.close();
