@@ -12,7 +12,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import org.scrumRestfinal.entities.Conexion;
+import org.scrumRestfinal.entities.Roles;
 import org.scrumRestfinal.entities.Usuarios;
+import org.scrumRestfinal.entities.UsuariosRoles;
 
 /**
  *
@@ -25,9 +27,25 @@ public class usuSer {
         con = new Conexion();
         conex = null;
     }
+
+    void addRol(UsuariosRoles ur) throws ClassNotFoundException, SQLException{
+        String sql="INSERT INTO public.usuarios_roles(	id_usuario_rol, id_rol, id_usuario) VALUES (?, ?, ?)";
+        conex = con.conectarBD();
+            
+        PreparedStatement pst=conex.prepareStatement(sql);
+        pst.setInt(1,this.obtenerIdMax());
+        pst.setInt(2,ur.getIdRol().getIdRol());
+        pst.setInt(3,ur.getIdUsuario().getIdUsuario());
+        
+        pst.execute();
+        pst.close();
+        conex.close();
+        con.cerrarBD();    
+    
+    }
     
    void addUsuario(Usuarios u) throws SQLException, ClassNotFoundException {
-        String sql="insert into \"usuarios\" (id_usuario,nombre,apellido,usuario,contrasenha, mail) values(?,?,?,?,?,?)";
+        String sql="insert into \"usuarios\" (id_usuario,nombre,apellido,usuario,contrasenha, mail, estado) values(?,?,?,?,?,?,true)";
         conex = con.conectarBD();
             
         PreparedStatement pst=conex.prepareStatement(sql);
@@ -43,12 +61,29 @@ public class usuSer {
         conex.close();
         con.cerrarBD();    
     }
-    
+   
+    public ArrayList<UsuariosRoles> getUsersRol() throws SQLException, ClassNotFoundException {
+        ArrayList<UsuariosRoles> lista = new ArrayList();
+        conex = con.conectarBD();
+        Statement st = conex.createStatement();
+        ResultSet rs = st.executeQuery("select id_usuario_rol, id_rol, id_usuario from usuarios_roles");
+        while (rs.next()) {
+            UsuariosRoles tm = new UsuariosRoles ();
+            tm.setIdUsuarioRol(rs.getInt(1));
+            tm.setIdRol((Roles) rs.getObject(2));
+            tm.setIdUsuario((Usuarios) rs.getObject(3));
+            lista.add(tm);
+        }
+        conex.close();
+        con.cerrarBD();
+        return lista;
+    }
+   
     public ArrayList<Usuarios> getUsers() throws SQLException, ClassNotFoundException {
         ArrayList<Usuarios> lista = new ArrayList();
         conex = con.conectarBD();
         Statement st = conex.createStatement();
-        ResultSet rs = st.executeQuery("select id_usuario, nombre, apellido, usuario, contrasenha, mail from \"usuarios\"");
+        ResultSet rs = st.executeQuery("select id_usuario, nombre, apellido, usuario, contrasenha, mail from \"usuarios\" where estado=true");
         while (rs.next()) {
             Usuarios tm = new Usuarios ();
             tm.setNombre(rs.getString("nombre"));
@@ -94,8 +129,20 @@ public class usuSer {
         return maxId+1;
     }
     
+     public int obtenerIdMaxRol() throws ClassNotFoundException, SQLException {
+        conex = con.conectarBD();
+        //Usuarios user = new Usuarios();
+        int maxId=0;
+        Statement st = conex.createStatement();
+        ResultSet rs = st.executeQuery("select max(id_usuario_rol) from \"usuarios_roles\"");
+        if (rs.next()) {
+            maxId=rs.getInt(1);  
+        }
+        return maxId+1;
+    }
+     
      public void eliminarUsu(String usuario) throws ClassNotFoundException, SQLException {
-        String sql="delete from \"Usuarios\" where usuario = ?";
+        String sql="update \"Usuarios\" set status = false where usuario = ?";
         conex = con.conectarBD();
         
         PreparedStatement pst = conex.prepareStatement(sql);
@@ -106,7 +153,7 @@ public class usuSer {
         con.cerrarBD();
     }
      public void editarUsu(String nomUsu,Usuarios user) throws SQLException, ClassNotFoundException {
-        String sql = "update usuarios set nombre = ?, apellido=?, usuario=?, contrasenha=?, mail = ? where usuario = ?";
+        String sql = "update usuarios set nombre = ?, apellido=?, usuario=?, contrasenha=?, mail = ?, estado=? where usuario = ?";
         conex = con.conectarBD();
          
         PreparedStatement pst = conex.prepareStatement(sql);
@@ -115,7 +162,8 @@ public class usuSer {
         pst.setString(3, user.getUsuario());
         pst.setString(4, user.getContrasenha());
         pst.setString(5, user.getMail());
-        pst.setString(6, nomUsu);
+        pst.setBoolean(6, user.getEstado());
+        pst.setString(7, nomUsu);
         System.out.println("ps: "+pst);
         pst.executeUpdate();
         pst.close();

@@ -44,19 +44,22 @@ public class UsuariosFacadeREST extends AbstractFacade<Usuarios> {
     public void create(Usuarios entity) {
         super.create(entity);
     }
-
+/*
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void edit(@PathParam("id") Integer id, Usuarios entity) {
         super.edit(entity);
     }
-
+/*
     @DELETE
     @Path("{id}")
-    public void remove(@PathParam("id") Integer id) {
-        super.remove(super.find(id));
-    }
+    public void remove(@PathParam("id") Integer id) throws ClassNotFoundException, SQLException {
+        System.err.println("usuario: "+id);
+        uservice.eliminarUsu(id);
+        String result = "Usuario eliminado correctamente!";
+        System.err.println(result);
+    
 
     @GET
     @Path("{id}")
@@ -64,7 +67,7 @@ public class UsuariosFacadeREST extends AbstractFacade<Usuarios> {
     public Usuarios find(@PathParam("id") Integer id) {
         return super.find(id);
     }
-
+/*
     @GET
     @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -85,14 +88,14 @@ public class UsuariosFacadeREST extends AbstractFacade<Usuarios> {
     public String countREST() {
         return String.valueOf(super.count());
     }
-
+*/
     @Override
     protected EntityManager getEntityManager() {
            return em=Persistence.createEntityManagerFactory("scrumRestfinalPU").createEntityManager();
     }
     
      //////
-     usuSer uservice = new usuSer();
+    usuSer uservice = new usuSer();
     //////////////////////////////////////////////7
     @GET
     @Path("/getusers")
@@ -134,18 +137,8 @@ public class UsuariosFacadeREST extends AbstractFacade<Usuarios> {
         
         return result;
     }
-     
-    @DELETE
-    @Path("/del/{id}")
-    @Produces("text/plain")
-    public String eliminarUsu(@PathParam("usuario") String usuario) throws ClassNotFoundException, SQLException {
-        System.err.println("usuario: "+usuario);
-        uservice.eliminarUsu(usuario);
-        String result = "Usuario eliminado correctamente!";
-        return result;
-    }
     
-     @PUT
+    @PUT
     @Path("/editarusuario/{usuario}")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces("text/plain")

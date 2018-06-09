@@ -6,9 +6,8 @@
 package org.scrumRestfinal.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,14 +15,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Pauli
+ * @author Sara Chamorro
  */
 @Entity
 @Table(name = "sprints")
@@ -31,38 +32,37 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Sprints.findAll", query = "SELECT s FROM Sprints s")
     , @NamedQuery(name = "Sprints.findByIdSprint", query = "SELECT s FROM Sprints s WHERE s.idSprint = :idSprint")
+    , @NamedQuery(name = "Sprints.findByDuracion", query = "SELECT s FROM Sprints s WHERE s.duracion = :duracion")
     , @NamedQuery(name = "Sprints.findByNombreSprint", query = "SELECT s FROM Sprints s WHERE s.nombreSprint = :nombreSprint")
-    , @NamedQuery(name = "Sprints.findByDuracion", query = "SELECT s FROM Sprints s WHERE s.duracion = :duracion")})
+    , @NamedQuery(name = "Sprints.findByFecha", query = "SELECT s FROM Sprints s WHERE s.fecha = :fecha")
+    , @NamedQuery(name = "Sprints.findByEstado", query = "SELECT s FROM Sprints s WHERE s.estado = :estado")})
 public class Sprints implements Serializable {
-
-    @Column(name = "duracion")
-    private Integer duracion;
-    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
-    @ManyToOne
-    private Usuarios idUsuario;
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
     @Column(name = "id_sprint")
     private Integer idSprint;
-    @Basic(optional = false)
+    @Column(name = "duracion")
+    private Integer duracion;
+    @Size(max = 255)
     @Column(name = "nombre_sprint")
     private String nombreSprint;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSprint")
-    private Collection<UsersHistories> usersHistoriesCollection;
+    @Column(name = "fecha")
+    @Temporal(TemporalType.DATE)
+    private Date fecha;
+    @Column(name = "estado")
+    private Boolean estado;
+    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
+    @ManyToOne
+    private Usuarios idUsuario;
 
     public Sprints() {
     }
 
     public Sprints(Integer idSprint) {
         this.idSprint = idSprint;
-    }
-
-    public Sprints(Integer idSprint, String nombreSprint, int duracion) {
-        this.idSprint = idSprint;
-        this.nombreSprint = nombreSprint;
-        this.duracion = duracion;
     }
 
     public Integer getIdSprint() {
@@ -73,6 +73,14 @@ public class Sprints implements Serializable {
         this.idSprint = idSprint;
     }
 
+    public Integer getDuracion() {
+        return duracion;
+    }
+
+    public void setDuracion(Integer duracion) {
+        this.duracion = duracion;
+    }
+
     public String getNombreSprint() {
         return nombreSprint;
     }
@@ -81,14 +89,28 @@ public class Sprints implements Serializable {
         this.nombreSprint = nombreSprint;
     }
 
-
-    @XmlTransient
-    public Collection<UsersHistories> getUsersHistoriesCollection() {
-        return usersHistoriesCollection;
+    public Date getFecha() {
+        return fecha;
     }
 
-    public void setUsersHistoriesCollection(Collection<UsersHistories> usersHistoriesCollection) {
-        this.usersHistoriesCollection = usersHistoriesCollection;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public Boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
+    }
+
+    public Usuarios getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Usuarios idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     @Override
@@ -114,22 +136,6 @@ public class Sprints implements Serializable {
     @Override
     public String toString() {
         return "org.scrumRestfinal.entities.Sprints[ idSprint=" + idSprint + " ]";
-    }
-
-    public Integer getDuracion() {
-        return duracion;
-    }
-
-    public void setDuracion(Integer duracion) {
-        this.duracion = duracion;
-    }
-
-    public Usuarios getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(Usuarios idUsuario) {
-        this.idUsuario = idUsuario;
     }
     
 }

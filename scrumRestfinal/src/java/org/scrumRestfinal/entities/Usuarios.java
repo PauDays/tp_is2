@@ -8,7 +8,6 @@ package org.scrumRestfinal.entities;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,12 +15,14 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Pauli
+ * @author Sara Chamorro
  */
 @Entity
 @Table(name = "usuarios")
@@ -29,65 +30,45 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Usuarios.findAll", query = "SELECT u FROM Usuarios u")
     , @NamedQuery(name = "Usuarios.findByIdUsuario", query = "SELECT u FROM Usuarios u WHERE u.idUsuario = :idUsuario")
-    , @NamedQuery(name = "Usuarios.findByNombre", query = "SELECT u FROM Usuarios u WHERE u.nombre = :nombre")
     , @NamedQuery(name = "Usuarios.findByApellido", query = "SELECT u FROM Usuarios u WHERE u.apellido = :apellido")
-    , @NamedQuery(name = "Usuarios.findByUsuario", query = "SELECT u FROM Usuarios u WHERE u.usuario = :usuario")
-    //, @NamedQuery(name = "Usuarios.findByTelefono", query = "SELECT u FROM Usuarios u WHERE u.telefono = :telefono")
     , @NamedQuery(name = "Usuarios.findByContrasenha", query = "SELECT u FROM Usuarios u WHERE u.contrasenha = :contrasenha")
-    //, @NamedQuery(name = "Usuarios.findByDireccion", query = "SELECT u FROM Usuarios u WHERE u.direccion = :direccion")
-    , @NamedQuery(name = "Usuarios.findByMail", query = "SELECT u FROM Usuarios u WHERE u.mail = :mail")})
+    , @NamedQuery(name = "Usuarios.findByMail", query = "SELECT u FROM Usuarios u WHERE u.mail = :mail")
+    , @NamedQuery(name = "Usuarios.findByNombre", query = "SELECT u FROM Usuarios u WHERE u.nombre = :nombre")
+    , @NamedQuery(name = "Usuarios.findByUsuario", query = "SELECT u FROM Usuarios u WHERE u.usuario = :usuario")
+    , @NamedQuery(name = "Usuarios.findByEstado", query = "SELECT u FROM Usuarios u WHERE u.estado = :estado")})
 public class Usuarios implements Serializable {
-
-    @OneToMany(mappedBy = "idUsuario")
-    private Collection<Sprints> sprintsCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
     @Column(name = "id_usuario")
     private Integer idUsuario;
-    @Basic(optional = false)
-    @Column(name = "nombre")
-    private String nombre;
-    @Basic(optional = false)
+    @Size(max = 255)
     @Column(name = "apellido")
     private String apellido;
-    @Basic(optional = false)
-    @Column(name = "usuario")
-    private String usuario;
-    //@Basic(optional = false)
-    //@Column(name = "telefono")
-    //private String telefono;
-    @Basic(optional = false)
+    @Size(max = 255)
     @Column(name = "contrasenha")
     private String contrasenha;
-    //@Basic(optional = false)
-    //@Column(name = "direccion")
-    //private String direccion;
-    @Basic(optional = false)
+    @Size(max = 255)
     @Column(name = "mail")
     private String mail;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
-    private Collection<UsuariosRoles> usuariosRolesCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
-    private Collection<Equipos> equiposCollection;
+    @Size(max = 255)
+    @Column(name = "nombre")
+    private String nombre;
+    @Size(max = 255)
+    @Column(name = "usuario")
+    private String usuario;
+    @Column(name = "estado")
+    private Boolean estado;
+    @OneToMany(mappedBy = "idUsuario")
+    private Collection<Sprints> sprintsCollection;
 
     public Usuarios() {
     }
 
     public Usuarios(Integer idUsuario) {
         this.idUsuario = idUsuario;
-    }
-
-    public Usuarios(Integer idUsuario, String nombre, String apellido, String usuario, String contrasenha,  String mail) {
-        this.idUsuario = idUsuario;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.usuario = usuario;
-        //this.telefono = telefono;
-        this.contrasenha = contrasenha;
-        //this.direccion = direccion;
-        this.mail = mail;
     }
 
     public Integer getIdUsuario() {
@@ -98,28 +79,12 @@ public class Usuarios implements Serializable {
         this.idUsuario = idUsuario;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public String getApellido() {
         return apellido;
     }
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
-    }
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
     }
 
     public String getContrasenha() {
@@ -138,23 +103,38 @@ public class Usuarios implements Serializable {
         this.mail = mail;
     }
 
-   /* @XmlTransient
-    public Collection<UsuariosRoles> getUsuariosRolesCollection() {
-        return usuariosRolesCollection;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setUsuariosRolesCollection(Collection<UsuariosRoles> usuariosRolesCollection) {
-        this.usuariosRolesCollection = usuariosRolesCollection;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public Boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
     }
 
     @XmlTransient
-    public Collection<Equipos> getEquiposCollection() {
-        return equiposCollection;
+    public Collection<Sprints> getSprintsCollection() {
+        return sprintsCollection;
     }
 
-    public void setEquiposCollection(Collection<Equipos> equiposCollection) {
-        this.equiposCollection = equiposCollection;
-    }*/
+    public void setSprintsCollection(Collection<Sprints> sprintsCollection) {
+        this.sprintsCollection = sprintsCollection;
+    }
 
     @Override
     public int hashCode() {
@@ -179,15 +159,6 @@ public class Usuarios implements Serializable {
     @Override
     public String toString() {
         return "org.scrumRestfinal.entities.Usuarios[ idUsuario=" + idUsuario + " ]";
-    }
-
-    @XmlTransient
-    public Collection<Sprints> getSprintsCollection() {
-        return sprintsCollection;
-    }
-
-    public void setSprintsCollection(Collection<Sprints> sprintsCollection) {
-        this.sprintsCollection = sprintsCollection;
     }
     
 }

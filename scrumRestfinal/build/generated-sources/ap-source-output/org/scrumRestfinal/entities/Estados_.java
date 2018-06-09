@@ -7,7 +7,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 import org.scrumRestfinal.entities.Kambam;
 import org.scrumRestfinal.entities.Proyectos;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-06-06T19:26:07")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-06-09T12:05:39")
 @StaticMetamodel(Estados.class)
 public class Estados_ { 
 

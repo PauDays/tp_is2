@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import org.scrumRestfinal.entities.Conexion;
+import org.scrumRestfinal.entities.Sprints;
 import org.scrumRestfinal.entities.Usuarios;
 
 /**
@@ -26,17 +27,17 @@ public class tareaServicio {
         conex = null;
     }
     
-   void addUsuario(Usuarios u) throws SQLException, ClassNotFoundException {
-        String sql="insert into \"usuarios\" (id_usuario,nombre,apellido,usuario,contrasenha, mail) values(?,?,?,?,?,?)";
+   void addTareas(Sprints s) throws SQLException, ClassNotFoundException {
+        String sql="INSERT INTO public.sprints(id_sprint, duracion, nombre_sprint, id_usuario, fecha, estado) values(?,?,?,?,?,?)";
         conex = con.conectarBD();
             
         PreparedStatement pst=conex.prepareStatement(sql);
         pst.setInt(1,this.obtenerIdMax());
-        pst.setString(2,u.getNombre());
-        pst.setString(3,u.getApellido());
-        pst.setString(4,u.getUsuario());
-        pst.setString(5,u.getContrasenha());
-        pst.setString(6,u.getMail());
+        pst.setInt(2,s.getDuracion());
+        pst.setString(3,s.getNombreSprint());
+        pst.setInt(4,s.getIdUsuario().getIdUsuario());
+        pst.setDate(5, new java.sql.Date(s.getFecha().getTime()));
+        pst.setBoolean(6,s.getEstado());
         
         pst.execute();
         pst.close();
@@ -44,48 +45,31 @@ public class tareaServicio {
         con.cerrarBD();    
     }
     
-    public ArrayList<Usuarios> getUsers() throws SQLException, ClassNotFoundException {
-        ArrayList<Usuarios> lista = new ArrayList();
+    public ArrayList<Sprints> getTareas() throws SQLException, ClassNotFoundException {
+        ArrayList<Sprints> lista = new ArrayList();
         conex = con.conectarBD();
         Statement st = conex.createStatement();
-        ResultSet rs = st.executeQuery("select id_usuario, nombre, apellido, usuario, contrasenha, mail from \"usuarios\"");
+        ResultSet rs = st.executeQuery("SELECT id_sprint, nombre_sprint, duracion, id_usuario, fecha FROM public.sprints where  estado = true");
         while (rs.next()) {
-            Usuarios tm = new Usuarios ();
-            tm.setNombre(rs.getString("nombre"));
-            tm.setApellido(rs.getString("apellido"));
-            tm.setUsuario(rs.getString("usuario"));
-            tm.setContrasenha(rs.getString("contrasenha"));
-            tm.setMail(rs.getString("mail"));
+            Sprints tm = new Sprints ();
+            tm.setIdSprint(rs.getInt(1));
+            tm.setNombreSprint(rs.getString(2));
+            tm.setDuracion(rs.getInt(3));
+            tm.setIdUsuario((Usuarios) rs.getObject(4));
+            tm.setFecha(rs.getDate(5));
             lista.add(tm);
         }
         conex.close();
         con.cerrarBD();
         return lista;
     }
-    public Usuarios login(String usuario, String contrasenha) throws ClassNotFoundException, SQLException {
-        conex = con.conectarBD();
-        Usuarios user = new Usuarios();
-        Statement st = conex.createStatement();
-        ResultSet rs = st.executeQuery("select id_usuario, nombre, mail from \"usuarios\" where usuario = '"+usuario+"' and contrasenha ='"+contrasenha+"'");
-        if (rs.next()) {
-            user.setIdUsuario(rs.getInt(1));
-            user.setNombre(rs.getString(2));
-            user.setMail(rs.getString(3));
-            
-        }
-        else {
-            user = null;
-        }
-        return user;
-    }
-        
      ///
      public int obtenerIdMax() throws ClassNotFoundException, SQLException {
         conex = con.conectarBD();
         //Usuarios user = new Usuarios();
         int maxId=0;
         Statement st = conex.createStatement();
-        ResultSet rs = st.executeQuery("select max(id_usuario) from \"usuarios\"");
+        ResultSet rs = st.executeQuery("select max(id_sprint) from \"sprints\"");
         if (rs.next()) {
             maxId=rs.getInt(1);
            
@@ -94,28 +78,18 @@ public class tareaServicio {
         return maxId+1;
     }
     
-     public void eliminarUsu(String usuario) throws ClassNotFoundException, SQLException {
-        String sql="delete from \"Usuarios\" where usuario = ?";
-        conex = con.conectarBD();
-        
-        PreparedStatement pst = conex.prepareStatement(sql);
-        pst.setString(1, usuario);
-        pst.executeUpdate();
-        pst.close();
-        conex.close();
-        con.cerrarBD();
-    }
-     public void editarUsu(String nomUsu,Usuarios user) throws SQLException, ClassNotFoundException {
-        String sql = "update usuarios set nombre = ?, apellido=?, usuario=?, contrasenha=?, mail = ? where usuario = ?";
+     public void editarTarea(int id,Sprints tarea) throws SQLException, ClassNotFoundException {
+        String sql = "UPDATE public.sprints SET  duracion=?, nombre_sprint=?, id_usuario=?, fecha=?, estado=? where id_sprints = ?";
         conex = con.conectarBD();
          
         PreparedStatement pst = conex.prepareStatement(sql);
-        pst.setString(1, user.getNombre());
-        pst.setString(2, user.getApellido());
-        pst.setString(3, user.getUsuario());
-        pst.setString(4, user.getContrasenha());
-        pst.setString(5, user.getMail());
-        pst.setString(6, nomUsu);
+        pst.setInt(1, tarea.getDuracion());
+        pst.setString(2, tarea.getNombreSprint());
+        pst.setInt(3, tarea.getIdUsuario().getIdUsuario());
+        pst.setDate(4, new java.sql.Date(tarea.getFecha().getTime()));
+        pst.setBoolean(5, tarea.getEstado());
+        pst.setInt(6, tarea.getIdSprint());
+        
         System.out.println("ps: "+pst);
         pst.executeUpdate();
         pst.close();
