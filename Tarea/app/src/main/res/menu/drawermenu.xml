@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:id="@+id/db" android:title="Modificar Tarea" android:icon="@drawable/modificar"/>
+<item android:id="@+id/event" android:title="Agregar Tarea" android:icon="@drawable/agregar"/>
+    <item android:id="@+id/search" android:title="Eliminar Tarea" android:icon="@drawable/eliminar"/>
+    <item android:id="@+id/settings" android:title="Consultar Tarea" android:icon="@drawable/consultar"/>
+    <item android:id="@+id/logout" android:title="Logout" android:icon="@drawable/log_out" />
+</menu>
+
