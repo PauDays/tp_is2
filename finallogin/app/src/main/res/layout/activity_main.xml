@@ -15,13 +15,10 @@
         android:layout_marginTop="32dp"
         android:layout_x="128dip"
         android:layout_y="132dip"
-<<<<<<< HEAD
-=======
         android:hint="@string/string_nombre_de_usuario"
         android:inputType="text"
->>>>>>> 9a8c7209048aea3d06045e6e816dbcba69be7574
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/lbl_username"
+        app:layout_constraintStart_toEndOf="@id/lbl_username"
         app:layout_constraintTop_toTopOf="parent"></EditText>
 
     <EditText
@@ -33,14 +30,11 @@
         android:layout_marginTop="32dp"
         android:layout_x="128dip"
         android:layout_y="192dip"
-<<<<<<< HEAD
-=======
         android:hint="@string/string_pass"
         android:inputType="textPassword"
->>>>>>> 9a8c7209048aea3d06045e6e816dbcba69be7574
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/lbl_password"
-        app:layout_constraintTop_toBottomOf="@+id/txt_username"></EditText>
+        app:layout_constraintStart_toEndOf="@id/lbl_password"
+        app:layout_constraintTop_toBottomOf="@id/txt_username"></EditText>
 
     <Button
         android:id="@+id/btn_login"
@@ -51,13 +45,9 @@
         android:layout_marginTop="32dp"
         android:layout_x="178dip"
         android:layout_y="252dip"
-<<<<<<< HEAD
-        android:text="Login"
-=======
         android:text="@string/string_login"
->>>>>>> 9a8c7209048aea3d06045e6e816dbcba69be7574
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lbl_password"></Button>
+        app:layout_constraintTop_toBottomOf="@id/lbl_password"></Button>
 
     <TextView
         android:id="@+id/lbl_username"
@@ -68,13 +58,9 @@
         android:layout_marginTop="32dp"
         android:layout_x="37dip"
         android:layout_y="150dip"
-<<<<<<< HEAD
-        android:text="Username"
-=======
         android:text="@string/String_username"
->>>>>>> 9a8c7209048aea3d06045e6e816dbcba69be7574
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lbl_top"></TextView>
+        app:layout_constraintTop_toBottomOf="@id/lbl_top"></TextView>
 
     <TextView
         android:id="@+id/lbl_password"
@@ -85,13 +71,9 @@
         android:layout_marginTop="32dp"
         android:layout_x="50dip"
         android:layout_y="207dip"
-<<<<<<< HEAD
-        android:text="Password"
-=======
         android:text="@string/string_password"
->>>>>>> 9a8c7209048aea3d06045e6e816dbcba69be7574
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lbl_username"></TextView>
+        app:layout_constraintTop_toBottomOf="@id/lbl_username"></TextView>
 
     <TextView
         android:id="@+id/lbl_top"
@@ -104,33 +86,12 @@
         android:layout_marginTop="12dp"
         android:layout_x="29dip"
         android:layout_y="94dip"
-<<<<<<< HEAD
-        android:text="Please Loggin First"
-=======
         android:text="@string/string_bienvenido"
->>>>>>> 9a8c7209048aea3d06045e6e816dbcba69be7574
         android:textSize="16sp"
         android:typeface="sans"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"></TextView>
 
-<<<<<<< HEAD
-    <TextView
-        android:id="@+id/lbl_result"
-        android:layout_width="219dp"
-        android:layout_height="44dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_x="50dip"
-        android:layout_y="312dip"
-        app:layout_constraintStart_toEndOf="@+id/btn_login"
-        app:layout_constraintTop_toBottomOf="@+id/txt_password"></TextView>
-
-
-
-=======
->>>>>>> 9a8c7209048aea3d06045e6e816dbcba69be7574
 
 </android.support.constraint.ConstraintLayout>

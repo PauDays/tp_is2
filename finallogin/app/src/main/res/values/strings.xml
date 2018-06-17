@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">finallogin</string>
-<<<<<<< HEAD
-=======
     <string name="String_username">Username</string>
     <string name="string_password">Password</string>
     <string name="string_login">Login</string>
@@ -9,5 +7,11 @@
     <string name="string_nombre_de_usuario">nombre de usuario</string>
     <string name="string_contrasenha">contrasenhsa</string>
     <string name="string_pass">contrasenha</string>
->>>>>>> 9a8c7209048aea3d06045e6e816dbcba69be7574
+    <string name="contrasenha">contrasenha</string>
+    <string name="correo">correo</string>
+    <string name="apellido">Apellido</string>
+    <string name="usuario">Usuario</string>
+    <string name="registrar">Registrar</string>
+    <string name="nombre">Nombre</string>
+    <string name="title_activity_ventana_crear_usu">VentanaCrearUsu</string>
 </resources>

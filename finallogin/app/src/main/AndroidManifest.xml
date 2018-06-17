@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.pauli.finallogin">
-<<<<<<< HEAD
-    <uses-permission android:name="android.permission.INTERNET" />
-=======
 
     <uses-permission android:name="android.permission.INTERNET" />
 
->>>>>>> 9a8c7209048aea3d06045e6e816dbcba69be7574
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,26 +15,20 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-<<<<<<< HEAD
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-=======
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <activity android:name=".RegistroUsuarios"
-            android:parentActivityName=".MainActivity" >
-            <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
-        <activity android:name=".vistaUsuarios" />
-        <activity android:name=".VerUsuarios"></activity>
->>>>>>> 9a8c7209048aea3d06045e6e816dbcba69be7574
+        <activity android:name=".OpcionesUsuarios" />
+        <activity android:name=".ModuloUsuarios" />
+        <activity android:name=".ModuloTareas" />
+        <activity
+            android:name=".VentanaCrearUsu"
+            android:label="@string/title_activity_ventana_crear_usu"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".VentanaEditarUsu" />
+        <activity android:name=".VentanaEliminarUsu" />
+        <activity android:name=".VentanaVerUsuario"></activity>
     </application>
 
 </manifest>
