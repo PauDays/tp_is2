@@ -22,13 +22,10 @@
         <activity android:name=".OpcionesUsuarios" />
         <activity android:name=".ModuloUsuarios" />
         <activity android:name=".ModuloTareas" />
-        <activity
-            android:name=".VentanaCrearUsu"
-            android:label="@string/title_activity_ventana_crear_usu"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".VentanaEditarUsu" />
         <activity android:name=".VentanaEliminarUsu" />
-        <activity android:name=".VentanaVerUsuario"></activity>
+        <activity android:name=".VentanaVerUsuario" />
+        <activity android:name=".VentanaCrearUsu"></activity>
     </application>
 
 </manifest>
