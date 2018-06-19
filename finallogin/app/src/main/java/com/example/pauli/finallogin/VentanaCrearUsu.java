@@ -52,6 +52,7 @@ public class VentanaCrearUsu extends AppCompatActivity {
                         loginParams.put("usuario", nomUsu.getText().toString());
                         loginParams.put("contrasenha", password.getText().toString());
                         loginParams.put("mail", mail.getText().toString());
+                        loginParams.put("rolusu",nomRol.getText().toString());
                 } catch (JSONException e) {
                         e.printStackTrace();
                 }
