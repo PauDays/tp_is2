@@ -62,7 +62,7 @@ public class usuSer {
         con.cerrarBD();    
     }
    
-    public ArrayList<Roles> getUsersRol() throws SQLException, ClassNotFoundException {
+    public ArrayList<Roles> getRol() throws SQLException, ClassNotFoundException {
         ArrayList<Roles> lista = new ArrayList();
         conex = con.conectarBD();
         Statement st = conex.createStatement();

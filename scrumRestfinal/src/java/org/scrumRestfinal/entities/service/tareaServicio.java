@@ -35,7 +35,7 @@ public class tareaServicio {
         pst.setInt(1,this.obtenerIdMax());
         pst.setInt(2,s.getDuracion());
         pst.setString(3,s.getNombreSprint());
-        pst.setInt(4,s.getIdUsuario().getIdUsuario());
+        pst.setInt(4,s.getIdUsuario());
         pst.setDate(5, new java.sql.Date(s.getFecha().getTime()));
         pst.setBoolean(6,s.getEstado());
         
@@ -49,13 +49,13 @@ public class tareaServicio {
         ArrayList<Sprints> lista = new ArrayList();
         conex = con.conectarBD();
         Statement st = conex.createStatement();
-        ResultSet rs = st.executeQuery("SELECT id_sprint, nombre_sprint, duracion, id_usuario, fecha FROM public.sprints where  estado = true");
+        ResultSet rs = st.executeQuery("SELECT id_sprint, nombre_sprint, duracion, id_usuario, date(fecha) FROM public.sprints where  estado = true");
         while (rs.next()) {
             Sprints tm = new Sprints ();
             tm.setIdSprint(rs.getInt(1));
             tm.setNombreSprint(rs.getString(2));
             tm.setDuracion(rs.getInt(3));
-            tm.setIdUsuario((Usuarios) rs.getObject(4));
+            tm.setIdUsuario(rs.getInt(4));
             tm.setFecha(rs.getDate(5));
             lista.add(tm);
         }
@@ -85,7 +85,7 @@ public class tareaServicio {
         PreparedStatement pst = conex.prepareStatement(sql);
         pst.setInt(1, tarea.getDuracion());
         pst.setString(2, tarea.getNombreSprint());
-        pst.setInt(3, tarea.getIdUsuario().getIdUsuario());
+        pst.setInt(3, tarea.getIdUsuario());
         pst.setDate(4, new java.sql.Date(tarea.getFecha().getTime()));
         pst.setBoolean(5, tarea.getEstado());
         pst.setInt(6, tarea.getIdSprint());

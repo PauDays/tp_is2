@@ -137,7 +137,7 @@ public class UsuariosFacadeREST extends AbstractFacade<Usuarios> {
     @Produces("text/plain")
     public String addRolUser(UsuariosRoles ur) throws SQLException, ClassNotFoundException {
        
-        uservice.addUsuariosRol(ur);
+        //uservice.addUsuariosRol(ur);
         String result = "Usuario guardado: " + ur.getIdUsuario();
         
         return result;

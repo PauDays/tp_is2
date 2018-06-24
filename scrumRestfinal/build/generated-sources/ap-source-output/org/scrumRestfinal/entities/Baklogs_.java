@@ -8,7 +8,7 @@ import org.scrumRestfinal.entities.Kambam;
 import org.scrumRestfinal.entities.Proyectos;
 import org.scrumRestfinal.entities.UsersHistories;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-06-09T16:24:39")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-06-23T19:27:58")
 @StaticMetamodel(Baklogs.class)
 public class Baklogs_ { 
 

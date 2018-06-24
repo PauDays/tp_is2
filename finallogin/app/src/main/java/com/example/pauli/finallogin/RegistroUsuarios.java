@@ -81,7 +81,7 @@ public class RegistroUsuarios extends AppCompatActivity {
         parameters.put("param5", etPassUsu.getText().toString());
         String response = "";
         try {
-            URL url = new URL("http://192.168.0.36:8084/scrumRestfinal/webresources/org.scrumrestfinal.entities.usuarios/adduser");
+            URL url = new URL("http://192.168.0.11:8085/scrumRestfinal/webresources/org.scrumrestfinal.entities.usuarios/adduser");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(15000);
             conn.setConnectTimeout(15000);

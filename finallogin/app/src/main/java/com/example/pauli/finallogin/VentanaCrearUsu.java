@@ -62,7 +62,7 @@ public class VentanaCrearUsu extends AppCompatActivity {
                 StrictMode.setThreadPolicy(policy);
 
                 try {
-                    message = executePost("http://192.168.0.36:8084/scrumRestfinal/webresources/org.scrumrestfinal.entities.usuarios/adduser", loginParams.toString());
+                    message = executePost("http://192.168.0.11:8085/scrumRestfinal/webresources/org.scrumrestfinal.entities.usuarios/adduser", loginParams.toString());
 
                     if (message.equals("")){
                         Toast.makeText(VentanaCrearUsu.this,"FAILED ADD USER", Toast.LENGTH_SHORT).show();

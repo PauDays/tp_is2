@@ -8,7 +8,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 import org.scrumRestfinal.entities.Baklogs;
 import org.scrumRestfinal.entities.Sprints;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-06-09T16:24:39")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-06-23T19:27:58")
 @StaticMetamodel(UsersHistories.class)
 public class UsersHistories_ { 
 

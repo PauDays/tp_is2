@@ -54,9 +54,8 @@ public class Sprints implements Serializable {
     private Date fecha;
     @Column(name = "estado")
     private Boolean estado;
-    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
-    @ManyToOne
-    private Usuarios idUsuario;
+    @Column(name = "id_usuario")
+    private int idUsuario;
 
     public Sprints() {
     }
@@ -105,11 +104,11 @@ public class Sprints implements Serializable {
         this.estado = estado;
     }
 
-    public Usuarios getIdUsuario() {
+    public int getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Usuarios idUsuario) {
+    public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
 

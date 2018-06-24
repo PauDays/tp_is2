@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         try {
-            message = executePost("http://192.168.0.36:8084/scrumRestfinal/webresources/org.scrumrestfinal.entities.usuarios/login", loginParams.toString());
+            message = executePost("http://192.168.0.11:8085/scrumRestfinal/webresources/org.scrumrestfinal.entities.usuarios/login", loginParams.toString());
 
             if (message.equals("")){
                 Toast.makeText(this,"FAILED LOGIN", 5).show();
