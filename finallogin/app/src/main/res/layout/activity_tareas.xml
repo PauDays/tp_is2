@@ -16,21 +16,41 @@
         android:inputType="" />
 
     <EditText
-        android:id="@+id/edit_duracion"
-        android:hint="Duracion"
+        android:id="@+id/edit_usuario_creador"
+        android:hint="Usuario Creador"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
-        android:id="@+id/edit_usuario"
-        android:hint="Id Usuario"
+        android:id="@+id/edit_usuario_editor"
+        android:hint="Usuario Editor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="" />
+
+    <EditText
+        android:id="@+id/edit_id_sprint"
+        android:hint="Sprint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="" />
+
+    <EditText
+        android:id="@+id/edit_estado"
+        android:hint="Estado"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="" />
 
     <EditText
         android:id="@+id/edit_fecha"
-        android:hint="Fecha"
+        android:hint="Fecha(yyyy/mm/dd)"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/edit_fecha_fin"
+        android:hint="Fecha fin(yyyy/mm/dd)"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -72,6 +92,7 @@
                 android:id="@+id/list_tareas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:layout_weight="1" >
             </ListView>
         </LinearLayout>

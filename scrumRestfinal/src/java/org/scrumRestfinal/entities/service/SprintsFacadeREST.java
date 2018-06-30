@@ -6,6 +6,7 @@
 package org.scrumRestfinal.entities.service;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -94,7 +95,7 @@ public class SprintsFacadeREST extends AbstractFacade<Sprints> {
     
     tareaServicio tareas = new tareaServicio();
     //////////////////////////////////////////////7
-    
+    /*
     @GET
     @Path("/getTareas")
     @Produces(MediaType.APPLICATION_JSON)
@@ -106,7 +107,8 @@ public class SprintsFacadeREST extends AbstractFacade<Sprints> {
     @Path("/addTarea")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces("text/plain")
-    public String addTarea(Sprints s) throws SQLException, ClassNotFoundException {
+    public String addTarea(Sprints s) throws SQLException, ClassNotFoundException, ParseException {
+        //System.out.println("-------------------------------------"+s.getFecha());
         tareas.addTareas(s);
         String result = "Usuario guardado: " + s.getNombreSprint();
         return result;
@@ -116,10 +118,10 @@ public class SprintsFacadeREST extends AbstractFacade<Sprints> {
     @Path("/editarTarea/{id}")
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces("text/plain")
-    public String editTarea(@PathParam("id") int id, Sprints tarea) throws SQLException, ClassNotFoundException {
+    public String editTarea(@PathParam("id") int id, Sprints tarea) throws SQLException, ClassNotFoundException, ParseException {
         System.out.println("Tarea id: " + id);
         tareas.editarTarea(id, tarea);
         String result = "Tarea modificada correctamente!";
         return result;
-    }
+    }*/
 }

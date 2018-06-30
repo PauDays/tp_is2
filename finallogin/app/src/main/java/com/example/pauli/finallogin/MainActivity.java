@@ -12,17 +12,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -91,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         try {
-            message = executePost("http://192.168.0.11:8085/scrumRestfinal/webresources/org.scrumrestfinal.entities.usuarios/login", loginParams.toString());
+            message = executePost("http://192.168.0.13:8085/scrumRestfinal/webresources/org.scrumrestfinal.entities.usuarios/login", loginParams.toString());
 
             if (message.equals("")){
                 Toast.makeText(this,"FAILED LOGIN", 5).show();

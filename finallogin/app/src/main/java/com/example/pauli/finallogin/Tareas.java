@@ -3,22 +3,32 @@ package com.example.pauli.finallogin;
 import java.sql.Date;
 
 public class Tareas {
-    private Integer idSprint;
-    private Integer duracion;
-    private String nombreSprint;
+    private Integer idUS;
+    private String nombreUS;
+    private Integer idUsuarioCreador;
+    private Integer idUsuarioEditor;
+    private String estado;
     private String fecha;
-    private Integer idUsuario;
+    private String fecha_fin;
+    private Integer idSprint;
 
     public Tareas(){
     }
 
-    public Tareas(Integer idSprint, Integer duracion, String nombreSprint, String fecha, int idUsuario) {
+
+    public Tareas(Integer idUS, String nombreUS, Integer idUsuarioCreador, Integer
+    idUsuarioEditor, String estado, String fecha, String fecha_fin, Integer idSprint) {
         this.idSprint = idSprint;
-        this.duracion = duracion;
-        this.nombreSprint = nombreSprint;
+        this.nombreUS = nombreUS;
+        this.idUsuarioCreador= idUsuarioCreador;
+        this.idUsuarioEditor = idUsuarioEditor;
+        this.estado = estado;
         this.fecha = fecha;
-        this.idUsuario = idUsuario;
+        this.fecha_fin = fecha_fin;
+        this.idUS = idUS;
     }
+
+
 
     public Integer getIdSprint() {
         return idSprint;
@@ -28,20 +38,36 @@ public class Tareas {
         this.idSprint = idSprint;
     }
 
-    public Integer getDuracion() {
-        return duracion;
+    public String getNombreUS() {
+        return nombreUS;
     }
 
-    public void setDuracion(Integer duracion) {
-        this.duracion = duracion;
+    public void setNombreUS(String nombreUS) {
+        this.nombreUS = nombreUS;
     }
 
-    public String getNombreSprint() {
-        return nombreSprint;
+    public Integer getIdUsuarioCreador() {
+        return idUsuarioCreador;
     }
 
-    public void setNombreSprint(String nombreSprint) {
-        this.nombreSprint = nombreSprint;
+    public void setIdUsuarioCreador(Integer idUsuarioCreador) {
+        this.idUsuarioCreador = idUsuarioCreador;
+    }
+
+    public Integer getIdUsuarioEditor() {
+        return idUsuarioEditor;
+    }
+
+    public void setIdUsuarioEditor(Integer idUsuarioEditor) {
+        this.idUsuarioEditor = idUsuarioEditor;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public String getFecha() {
@@ -52,11 +78,21 @@ public class Tareas {
         this.fecha = fecha;
     }
 
-    public Integer getIdUsuario() {
-        return idUsuario;
+    public String getFechaFin() {
+        return fecha_fin;
     }
 
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setFechaFin(String fecha_fin) {
+        this.fecha_fin = fecha_fin;
     }
+
+    public Integer getIdUS() {
+        return idUS;
+    }
+
+    public void setIdUS(Integer idUS) {
+        this.idUS = idUS;
+    }
+
+
 }
