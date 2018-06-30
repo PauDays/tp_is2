@@ -110,22 +110,22 @@ public class UsuariosFacadeREST extends AbstractFacade<Usuarios> {
     @Path("/getroles")
     @Produces(MediaType.APPLICATION_JSON)
     public ArrayList<Roles> getRoles() throws ClassNotFoundException, SQLException {
-        return uservice.getRol();
+        return uservice.getUsersRol();
     }
     
     @POST
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String login(Usuarios u) throws ClassNotFoundException, SQLException {
+    public Usuarios login(Usuarios u) throws ClassNotFoundException, SQLException {
         Usuarios user = new Usuarios();
         user = uservice.login(u.getUsuario(),u.getContrasenha()); //heeere 
        if (user==null){
-     return "false";
+            return null;
        }
        else
        {
-           return "true";
+           return user;
        }
        
      
@@ -137,7 +137,7 @@ public class UsuariosFacadeREST extends AbstractFacade<Usuarios> {
     @Produces("text/plain")
     public String addRolUser(UsuariosRoles ur) throws SQLException, ClassNotFoundException {
        
-        //uservice.addUsuariosRol(ur);
+        uservice.addUsuariosRol(ur);
         String result = "Usuario guardado: " + ur.getIdUsuario();
         
         return result;
@@ -154,11 +154,16 @@ public class UsuariosFacadeREST extends AbstractFacade<Usuarios> {
         usuario.setUsuario(u.getUsuario());
         usuario.setMail(u.getMail());
         usuario.setContrasenha(u.getContrasenha());
-        uservice.addUsuario(usuario);
-        String result = "Usuario guardado: " + usuario.getUsuario()+", "+usuario.getMail();
+        usuario.setRolusu(u.getRolusu());
+        //aca hay que ver si el rol existe
+        String test =uservice.addUsuario(usuario);
         
-        return result;
+        ///////////////////////////////////////7
+        return test;
     }
+    
+    
+   
     
     @PUT
     @Path("/editarusuario/{usuario}")
@@ -171,4 +176,15 @@ public class UsuariosFacadeREST extends AbstractFacade<Usuarios> {
         return result;
     }
     
+    @DELETE
+    @Path("eliminarusuario/{id}")
+    public String remove(@PathParam("id") int id_usuario) throws ClassNotFoundException, SQLException {
+        System.err.println("usuario: "+id_usuario);
+        uservice.eliminarUsu(id_usuario);
+        String result = "Usuario eliminado correctamente!";
+        return result;
+    
+   
+    
+}
 }
