@@ -61,6 +61,10 @@ public class Usuarios implements Serializable {
     private String usuario;
     @Column(name = "estado")
     private Boolean estado;
+    @OneToMany(mappedBy = "idUserCreador")
+    private Collection<UsersHistories> usersHistoriesCollection;
+    @OneToMany(mappedBy = "idUserEditor")
+    private Collection<UsersHistories> usersHistoriesCollection1;
     @OneToMany(mappedBy = "idUsuario")
     private Collection<Sprints> sprintsCollection;
     private String rolusu;
@@ -134,6 +138,24 @@ public class Usuarios implements Serializable {
 
     public void setEstado(Boolean estado) {
         this.estado = estado;
+    }
+
+    @XmlTransient
+    public Collection<UsersHistories> getUsersHistoriesCollection() {
+        return usersHistoriesCollection;
+    }
+
+    public void setUsersHistoriesCollection(Collection<UsersHistories> usersHistoriesCollection) {
+        this.usersHistoriesCollection = usersHistoriesCollection;
+    }
+
+    @XmlTransient
+    public Collection<UsersHistories> getUsersHistoriesCollection1() {
+        return usersHistoriesCollection1;
+    }
+
+    public void setUsersHistoriesCollection1(Collection<UsersHistories> usersHistoriesCollection1) {
+        this.usersHistoriesCollection1 = usersHistoriesCollection1;
     }
 
     @XmlTransient

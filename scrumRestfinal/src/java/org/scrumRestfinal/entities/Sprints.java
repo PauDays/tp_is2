@@ -6,6 +6,7 @@
 package org.scrumRestfinal.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -15,12 +16,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -35,7 +38,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Sprints.findByDuracion", query = "SELECT s FROM Sprints s WHERE s.duracion = :duracion")
     , @NamedQuery(name = "Sprints.findByNombreSprint", query = "SELECT s FROM Sprints s WHERE s.nombreSprint = :nombreSprint")
     , @NamedQuery(name = "Sprints.findByFecha", query = "SELECT s FROM Sprints s WHERE s.fecha = :fecha")
-    , @NamedQuery(name = "Sprints.findByEstado", query = "SELECT s FROM Sprints s WHERE s.estado = :estado")})
+    , @NamedQuery(name = "Sprints.findByEstado", query = "SELECT s FROM Sprints s WHERE s.estado = :estado")
+    , @NamedQuery(name = "Sprints.findByFechaFin", query = "SELECT s FROM Sprints s WHERE s.fechaFin = :fechaFin")})
 public class Sprints implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -50,12 +54,16 @@ public class Sprints implements Serializable {
     @Column(name = "nombre_sprint")
     private String nombreSprint;
     @Column(name = "fecha")
-    @Temporal(TemporalType.DATE)
-    private Date fecha;
+    private String fecha;
     @Column(name = "estado")
     private Boolean estado;
-    @Column(name = "id_usuario")
-    private int idUsuario;
+    @Column(name = "fecha_fin")
+    private String fechaFin;
+    @OneToMany(mappedBy = "idSprint")
+    private Collection<UsersHistories> usersHistoriesCollection;
+    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
+    @ManyToOne
+    private Usuarios idUsuario;
 
     public Sprints() {
     }
@@ -88,11 +96,11 @@ public class Sprints implements Serializable {
         this.nombreSprint = nombreSprint;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
@@ -104,11 +112,28 @@ public class Sprints implements Serializable {
         this.estado = estado;
     }
 
-    public int getIdUsuario() {
+    public String getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(String fechaFin) {
+        this.fechaFin = fechaFin;
+    }
+
+    @XmlTransient
+    public Collection<UsersHistories> getUsersHistoriesCollection() {
+        return usersHistoriesCollection;
+    }
+
+    public void setUsersHistoriesCollection(Collection<UsersHistories> usersHistoriesCollection) {
+        this.usersHistoriesCollection = usersHistoriesCollection;
+    }
+
+    public Usuarios getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(int idUsuario) {
+    public void setIdUsuario(Usuarios idUsuario) {
         this.idUsuario = idUsuario;
     }
 

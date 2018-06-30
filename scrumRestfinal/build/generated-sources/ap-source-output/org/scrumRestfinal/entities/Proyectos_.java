@@ -8,7 +8,7 @@ import org.scrumRestfinal.entities.Baklogs;
 import org.scrumRestfinal.entities.Equipos;
 import org.scrumRestfinal.entities.Estados;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-06-23T19:27:58")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-06-30T12:25:27")
 @StaticMetamodel(Proyectos.class)
 public class Proyectos_ { 
 

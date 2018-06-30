@@ -34,17 +34,23 @@ public class CustomAdapter extends ArrayAdapter {
         convertView = layoutInflater.inflate(layout, null);
 
         //ImageView tareas = (ImageView) convertView.findViewById(R.id.list_tareas);
-        TextView textNombreTarea = (TextView) convertView.findViewById(R.id.text_nombre_tarea);
-        TextView textDuracion = (TextView) convertView.findViewById(R.id.text_duracion);
-        TextView textIdUsuario = (TextView) convertView.findViewById(R.id.text_id_usuario);
-        TextView textFecha = (TextView) convertView.findViewById(R.id.text_fecha);
+        TextView textNombreUS = convertView.findViewById(R.id.text_nombre_tarea);
+        TextView textIdUsuarioCreador = (TextView) (TextView) convertView.findViewById(R.id.text_id_usuario_creador);
+        TextView textIdUsuarioEditor = (TextView) (TextView) convertView.findViewById(R.id.text_id_usuario_editor);
+        TextView textEstado= convertView.findViewById(R.id.text_estado);
+        TextView textIdSprint = (TextView) (TextView) convertView.findViewById(R.id.text_id_sprint);
+        TextView textFecha =  convertView.findViewById(R.id.text_fecha);
+        TextView textFechaFin = (TextView) (TextView) convertView.findViewById(R.id.text_fecha_fin);
 
         //tareas.setImageResource(arrTareas.get(position).getIdSprint());
-        textNombreTarea.setText(arrTareas.get(position).getNombreSprint());
-        textDuracion.setText(arrTareas.get(position).getDuracion().toString());
-        textIdUsuario.setText(arrTareas.get(position).getIdUsuario().toString());
-
+        textNombreUS.setText(arrTareas.get(position).getNombreUS());
+        textIdUsuarioCreador.setText(arrTareas.get(position).getIdUsuarioCreador().toString());
+        textIdUsuarioEditor.setText(arrTareas.get(position).getIdUsuarioEditor().toString());
+        textEstado.setText(arrTareas.get(position).getEstado().toString());
+        textIdSprint.setText(arrTareas.get(position).getIdSprint().toString());
+        System.out.println("++++++++++++++++++++"+arrTareas.get(position).getFecha());
         textFecha.setText(arrTareas.get(position).getFecha());
+        textFechaFin.setText(arrTareas.get(position).getFechaFin());
 
         return convertView;
     }

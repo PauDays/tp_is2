@@ -5,8 +5,12 @@
  */
 package org.scrumRestfinal.entities.service;
 
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -17,6 +21,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import org.scrumRestfinal.entities.Sprints;
 import org.scrumRestfinal.entities.UsersHistories;
 
 /**
@@ -84,7 +89,49 @@ public class UsersHistoriesFacadeREST extends AbstractFacade<UsersHistories> {
 
     @Override
     protected EntityManager getEntityManager() {
-        return em;
+           return em=Persistence.createEntityManagerFactory("scrumRestfinalPU").createEntityManager();
+    }
+    
+    tareaServicio tareas = new tareaServicio();
+    //////////////////////////////////////////////7
+    
+    @GET
+    @Path("/getTareas")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ArrayList<UsersHistories> getTareas() throws ClassNotFoundException, SQLException {
+        return tareas.getTareas();
+    }
+    
+    @POST
+    @Path("/addTarea")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces("text/plain")
+    public String addTarea(UsersHistories s) throws SQLException, ClassNotFoundException, ParseException {
+        //System.out.println("-------------------------------------"+s.getFecha());
+        tareas.addTareas(s);
+        String result = "Usuario guardado: " + s.getNombreUs();
+        return result;
+    }
+    
+    @PUT
+    @Path("/editarTarea/{id}")
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces("text/plain")
+    public String editTarea(@PathParam("id") int id, UsersHistories tarea) throws SQLException, ClassNotFoundException, ParseException {
+        System.out.println("Tarea id: " + tarea);
+        tareas.editarTarea(id, tarea);
+        String result = "Tarea modificada correctamente!";
+        return result;
+    }
+    
+    
+    @GET
+    @Path("/idUsuarioTareas/{id}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public ArrayList<UsersHistories> findId(@PathParam("id") Integer id) throws SQLException, ClassNotFoundException {
+        System.out.println("Tarea id: " + id);
+        ArrayList<UsersHistories> resultado = tareas.getUsuarioTareas(id);
+        return resultado;
     }
     
 }

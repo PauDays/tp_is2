@@ -10,9 +10,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 import org.scrumRestfinal.entities.Conexion;
 import org.scrumRestfinal.entities.Sprints;
+import org.scrumRestfinal.entities.UsersHistories;
 import org.scrumRestfinal.entities.Usuarios;
 
 /**
@@ -27,44 +33,105 @@ public class tareaServicio {
         conex = null;
     }
     
-   void addTareas(Sprints s) throws SQLException, ClassNotFoundException {
-        String sql="INSERT INTO public.sprints(id_sprint, duracion, nombre_sprint, id_usuario, fecha, estado) values(?,?,?,?,?,?)";
+   void addTareas(UsersHistories s) throws SQLException, ClassNotFoundException, ParseException {
+        String sql="INSERT INTO public.users_histories(id_us, nombre_us, id_user_editor, id_user_creador, estado, id_sprint) values(?,?,?,?,?,?)";
+        String sql2="INSERT INTO public.sprints(id_sprint, fecha, fecha_fin) values(?,?,?)";
         conex = con.conectarBD();
             
         PreparedStatement pst=conex.prepareStatement(sql);
-        pst.setInt(1,this.obtenerIdMax());
-        pst.setInt(2,s.getDuracion());
-        pst.setString(3,s.getNombreSprint());
-        pst.setInt(4,s.getIdUsuario());
-        pst.setDate(5, new java.sql.Date(s.getFecha().getTime()));
-        pst.setBoolean(6,s.getEstado());
+        PreparedStatement pst2=conex.prepareStatement(sql2);
+        pst.setInt(1,this.obtenerIdMaxUS());
+        pst.setString(2,s.getNombreUs());
+        pst.setInt(3,s.getIdUserEditor());
+        pst.setInt(4,s.getIdUserCreador());
+        pst.setString(5,s.getEstado());
+        pst.setInt(6,s.getIdSprint());
+        pst2.setInt(1, s.getIdSprint());
+        DateFormat format = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
+        Date date = format.parse(s.getFecha());
         
+        pst2.setDate(2, new java.sql.Date(date.getTime()));
+        
+        Date date_fin = format.parse(s.getFechaFin());
+        pst2.setDate(3, new java.sql.Date(date_fin.getTime()));
+         pst2.execute();
+        pst2.close();
         pst.execute();
         pst.close();
+        
+       
         conex.close();
         con.cerrarBD();    
     }
     
-    public ArrayList<Sprints> getTareas() throws SQLException, ClassNotFoundException {
-        ArrayList<Sprints> lista = new ArrayList();
+    public ArrayList<UsersHistories> getTareas() throws SQLException, ClassNotFoundException {
+        ArrayList<UsersHistories> lista = new ArrayList();
         conex = con.conectarBD();
         Statement st = conex.createStatement();
-        ResultSet rs = st.executeQuery("SELECT id_sprint, nombre_sprint, duracion, id_usuario, date(fecha) FROM public.sprints where  estado = true");
+        ResultSet rs = st.executeQuery("select us.id_us, us.nombre_us, us.id_user_editor, us.id_user_creador, us.estado,\n" +
+"s.fecha, s.fecha_fin, us.id_sprint \n" +
+"from users_histories us,  sprints s where us.id_sprint = s.id_sprint");
         while (rs.next()) {
-            Sprints tm = new Sprints ();
-            tm.setIdSprint(rs.getInt(1));
-            tm.setNombreSprint(rs.getString(2));
-            tm.setDuracion(rs.getInt(3));
-            tm.setIdUsuario(rs.getInt(4));
-            tm.setFecha(rs.getDate(5));
+            UsersHistories tm = new UsersHistories ();
+            tm.setIdUs(rs.getInt(1));
+            tm.setNombreUs(rs.getString(2));
+            tm.setIdUserEditor(rs.getInt(3));
+            tm.setIdUserCreador(rs.getInt(4));
+            tm.setEstado(rs.getString(5));
+            tm.setFecha(rs.getString(6));
+            System.out.println("***********"+rs.getString(6)+"--"+rs.getString(7));
+            tm.setFechaFin(rs.getString(7));
+            tm.setIdSprint(rs.getInt(8));
             lista.add(tm);
+            System.out.println("****************"+tm.getFechaFin());
+        }
+        conex.close();
+        con.cerrarBD();
+        return lista;
+    }
+    
+    public ArrayList<UsersHistories> getUsuarioTareas(Integer id) throws SQLException, ClassNotFoundException {
+        ArrayList<UsersHistories> lista = new ArrayList();
+        conex = con.conectarBD();
+        Statement st = conex.createStatement();
+        System.out.println("Tarea id: " + id);
+        ResultSet rs = st.executeQuery("select us.id_us, us.nombre_us, us.id_user_editor, us.id_user_creador, us.estado,\n" +
+"s.fecha, s.fecha_fin, us.id_sprint from users_histories us,  sprints s where us.id_sprint = s.id_sprint and us.id_user_editor = "+id);
+        while (rs.next()) {
+            UsersHistories tm = new UsersHistories ();
+            System.out.println("Tarea id: " + rs.getInt(1));
+            tm.setIdUs(rs.getInt(1));
+            tm.setNombreUs(rs.getString(2));
+            tm.setIdUserEditor(rs.getInt(3));
+            tm.setIdUserCreador(rs.getInt(4));
+            tm.setEstado(rs.getString(5));
+            tm.setFecha(rs.getString(6));
+            System.out.println("***********"+rs.getString(6)+"--"+rs.getString(7));
+            tm.setFechaFin(rs.getString(7));
+            tm.setIdSprint(rs.getInt(8));
+            lista.add(tm);
+            System.out.println("****************"+tm.getFechaFin());
         }
         conex.close();
         con.cerrarBD();
         return lista;
     }
      ///
-     public int obtenerIdMax() throws ClassNotFoundException, SQLException {
+     public int obtenerIdMaxUS() throws ClassNotFoundException, SQLException {
+        conex = con.conectarBD();
+        //Usuarios user = new Usuarios();
+        int maxId=0;
+        Statement st = conex.createStatement();
+        ResultSet rs = st.executeQuery("select max(id_us) from \"users_histories\"");
+        if (rs.next()) {
+            maxId=rs.getInt(1);
+           
+        }
+        
+        return maxId+1;
+    }
+     
+     public int obtenerIdMaxSprint() throws ClassNotFoundException, SQLException {
         conex = con.conectarBD();
         //Usuarios user = new Usuarios();
         int maxId=0;
@@ -78,21 +145,31 @@ public class tareaServicio {
         return maxId+1;
     }
     
-     public void editarTarea(int id,Sprints tarea) throws SQLException, ClassNotFoundException {
-        String sql = "UPDATE public.sprints SET  duracion=?, nombre_sprint=?, id_usuario=?, fecha=?, estado=? where id_sprints = ?";
+     public void editarTarea(int id,UsersHistories tarea) throws SQLException, ClassNotFoundException, ParseException {
+        String sql = "UPDATE public.users_histories SET  id_us= ?, nombre_us= ?, id_user_editor= ?, id_user_creador= ?, estado = ? where id_us = ?";
+        String sql2 = "UPDATE public.sprints SET  fecha=?, fecha_fin = ? where id_sprint = ?";
         conex = con.conectarBD();
          
         PreparedStatement pst = conex.prepareStatement(sql);
-        pst.setInt(1, tarea.getDuracion());
-        pst.setString(2, tarea.getNombreSprint());
-        pst.setInt(3, tarea.getIdUsuario());
-        pst.setDate(4, new java.sql.Date(tarea.getFecha().getTime()));
-        pst.setBoolean(5, tarea.getEstado());
-        pst.setInt(6, tarea.getIdSprint());
+        PreparedStatement pst2 = conex.prepareStatement(sql2);
+        pst.setInt(1, id);
+        pst.setString(2, tarea.getNombreUs());
+        pst.setInt(3, tarea.getIdUserEditor());
+        pst.setInt(4, tarea.getIdUserCreador());
+        pst.setString(5, tarea.getEstado());
+        pst.setInt(6, id);
+        DateFormat format = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
+        Date date = format.parse(tarea.getFecha());
+        pst2.setDate(1, new java.sql.Date(date.getTime()));
+        Date date_fin = format.parse(tarea.getFechaFin());
+        pst2.setDate(2, new java.sql.Date(date_fin.getTime()));
+        pst2.setInt(3, tarea.getIdSprint());
         
-        System.out.println("ps: "+pst);
+        System.out.println("ps: "+pst+pst2);
         pst.executeUpdate();
+        pst2.executeUpdate();
         pst.close();
+        pst2.close();
         conex.close();
         con.cerrarBD();
     }

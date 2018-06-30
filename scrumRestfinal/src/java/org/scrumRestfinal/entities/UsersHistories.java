@@ -6,10 +6,8 @@
 package org.scrumRestfinal.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,16 +15,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Pauli
+ * @author Sara Chamorro
  */
 @Entity
 @Table(name = "users_histories")
@@ -34,59 +32,52 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "UsersHistories.findAll", query = "SELECT u FROM UsersHistories u")
     , @NamedQuery(name = "UsersHistories.findByIdUs", query = "SELECT u FROM UsersHistories u WHERE u.idUs = :idUs")
-    , @NamedQuery(name = "UsersHistories.findByNombreUs", query = "SELECT u FROM UsersHistories u WHERE u.nombreUs = :nombreUs")
     , @NamedQuery(name = "UsersHistories.findByDescripcion", query = "SELECT u FROM UsersHistories u WHERE u.descripcion = :descripcion")
-    , @NamedQuery(name = "UsersHistories.findByTiempoEjecutado", query = "SELECT u FROM UsersHistories u WHERE u.tiempoEjecutado = :tiempoEjecutado")
+    , @NamedQuery(name = "UsersHistories.findByNombreUs", query = "SELECT u FROM UsersHistories u WHERE u.nombreUs = :nombreUs")
     , @NamedQuery(name = "UsersHistories.findByPrioridad", query = "SELECT u FROM UsersHistories u WHERE u.prioridad = :prioridad")
-    , @NamedQuery(name = "UsersHistories.findByUsuarioCreador", query = "SELECT u FROM UsersHistories u WHERE u.usuarioCreador = :usuarioCreador")
-    , @NamedQuery(name = "UsersHistories.findByUsuarioEditor", query = "SELECT u FROM UsersHistories u WHERE u.usuarioEditor = :usuarioEditor")})
+    , @NamedQuery(name = "UsersHistories.findByTiempoEjecutado", query = "SELECT u FROM UsersHistories u WHERE u.tiempoEjecutado = :tiempoEjecutado")
+    , @NamedQuery(name = "UsersHistories.findByEstado", query = "SELECT u FROM UsersHistories u WHERE u.estado = :estado")})
 public class UsersHistories implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
     @Column(name = "id_us")
     private Integer idUs;
-    @Basic(optional = false)
-    @Column(name = "nombre_us")
-    private String nombreUs;
-    @Basic(optional = false)
+    @Size(max = 255)
     @Column(name = "descripcion")
     private String descripcion;
-    @Basic(optional = false)
+    @Size(max = 255)
+    @Column(name = "nombre_us")
+    private String nombreUs;
+    @Size(max = 255)
+    @Column(name = "prioridad")
+    private String prioridad;
     @Column(name = "tiempo_ejecutado")
     @Temporal(TemporalType.DATE)
     private Date tiempoEjecutado;
-    @Basic(optional = false)
-    @Column(name = "prioridad")
-    private String prioridad;
-    @Basic(optional = false)
-    @Column(name = "usuario_creador")
-    private String usuarioCreador;
-    @Basic(optional = false)
-    @Column(name = "usuario_editor")
-    private String usuarioEditor;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUs")
-    private Collection<Baklogs> baklogsCollection;
-    @JoinColumn(name = "id_sprint", referencedColumnName = "id_sprint")
-    @ManyToOne(optional = false)
-    private Sprints idSprint;
+    @Size(max = 2147483647)
+    @Column(name = "estado")
+    private String estado;
+    @Column(name = "id_sprint")
+    private Integer idSprint;
+    @Column(name = "id_user_creador")
+    @ManyToOne
+    private Integer idUserCreador;
+    @Column(name = "id_user_editor")
+    @ManyToOne
+    private Integer idUserEditor;
+    @Column(name = "fecha")
+    private String fecha;
+    @Column(name = "fecha_fin")
+    private String fechaFin;
 
     public UsersHistories() {
     }
 
     public UsersHistories(Integer idUs) {
         this.idUs = idUs;
-    }
-
-    public UsersHistories(Integer idUs, String nombreUs, String descripcion, Date tiempoEjecutado, String prioridad, String usuarioCreador, String usuarioEditor) {
-        this.idUs = idUs;
-        this.nombreUs = nombreUs;
-        this.descripcion = descripcion;
-        this.tiempoEjecutado = tiempoEjecutado;
-        this.prioridad = prioridad;
-        this.usuarioCreador = usuarioCreador;
-        this.usuarioEditor = usuarioEditor;
     }
 
     public Integer getIdUs() {
@@ -97,14 +88,6 @@ public class UsersHistories implements Serializable {
         this.idUs = idUs;
     }
 
-    public String getNombreUs() {
-        return nombreUs;
-    }
-
-    public void setNombreUs(String nombreUs) {
-        this.nombreUs = nombreUs;
-    }
-
     public String getDescripcion() {
         return descripcion;
     }
@@ -113,12 +96,12 @@ public class UsersHistories implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public Date getTiempoEjecutado() {
-        return tiempoEjecutado;
+    public String getNombreUs() {
+        return nombreUs;
     }
 
-    public void setTiempoEjecutado(Date tiempoEjecutado) {
-        this.tiempoEjecutado = tiempoEjecutado;
+    public void setNombreUs(String nombreUs) {
+        this.nombreUs = nombreUs;
     }
 
     public String getPrioridad() {
@@ -129,37 +112,60 @@ public class UsersHistories implements Serializable {
         this.prioridad = prioridad;
     }
 
-    public String getUsuarioCreador() {
-        return usuarioCreador;
+    public Date getTiempoEjecutado() {
+        return tiempoEjecutado;
     }
 
-    public void setUsuarioCreador(String usuarioCreador) {
-        this.usuarioCreador = usuarioCreador;
+    public void setTiempoEjecutado(Date tiempoEjecutado) {
+        this.tiempoEjecutado = tiempoEjecutado;
     }
 
-    public String getUsuarioEditor() {
-        return usuarioEditor;
+    public String getEstado() {
+        return estado;
     }
 
-    public void setUsuarioEditor(String usuarioEditor) {
-        this.usuarioEditor = usuarioEditor;
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
-    @XmlTransient
-    public Collection<Baklogs> getBaklogsCollection() {
-        return baklogsCollection;
-    }
-
-    public void setBaklogsCollection(Collection<Baklogs> baklogsCollection) {
-        this.baklogsCollection = baklogsCollection;
-    }
-
-    public Sprints getIdSprint() {
+    public Integer getIdSprint() {
         return idSprint;
     }
 
-    public void setIdSprint(Sprints idSprint) {
+    public void setIdSprint(Integer idSprint) {
         this.idSprint = idSprint;
+    }
+
+    public Integer getIdUserCreador() {
+        return idUserCreador;
+    }
+
+    public void setIdUserCreador(Integer idUserCreador) {
+        this.idUserCreador = idUserCreador;
+    }
+
+    public Integer getIdUserEditor() {
+        return idUserEditor;
+    }
+
+    public void setIdUserEditor(Integer idUserEditor) {
+        this.idUserEditor = idUserEditor;
+    }
+    
+    public String getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(String fechaFin) {
+        this.fechaFin = fechaFin;
+    }
+    
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 
     @Override

@@ -11,22 +11,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -62,19 +48,26 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
        @Override
     public void onClick(View view) {
         if(view == ok){
-          //  boolean answer=Login();
-            Login();
-
+            boolean answer=Login();
+         if (answer==true)
+            {
+                Intent firstIntent= new Intent(this, OpcionesUsuarios.class);
+                startActivity(firstIntent);
+            }
+            else
+            {
+                Toast.makeText(MainActivity.this,"NOPE", Toast.LENGTH_SHORT).show();
+            }
         }
     }
     
     @SuppressLint("WrongConstant")
-    public void Login(){
+    public boolean Login(){
         //recupera los valores ingresados por el usuario
 
         EditText editTextUserName = findViewById(R.id.txt_username);
         EditText editTextPassword = findViewById(R.id.txt_password);
-        JSONObject message=new JSONObject();
+        String message;
         
         JSONObject loginParams = new JSONObject();
 
@@ -88,29 +81,23 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         try {
-            message = executePost("http://192.168.0.36:8084/scrumRestfinal/webresources/org.scrumrestfinal.entities.usuarios/login", loginParams.toString());
+            message = executePost("http://192.168.0.13:8085/scrumRestfinal/webresources/org.scrumrestfinal.entities.usuarios/login", loginParams.toString());
 
-            if (message==null){
+            if (message.equals("")){
                 Toast.makeText(this,"FAILED LOGIN", 5).show();
-              //  return false;
+                return false;
+            }
+            if(message.equalsIgnoreCase("false")){
+                Toast.makeText(this,"Los datos ingresados no coinciden", 25000).show();
+                return false;
 
             }else{
 
                 Toast.makeText(this,"Login correcto", 25000).show();
-               // return true;
-                Person resultRow = new Person();
-                //set that person's attributes
-                resultRow.setId_usuario(message.getInt("idUsuario"));
-                resultRow.setName1(message.getString("rolusu"));
+                return true;
 
-
-                Intent firstIntent= new Intent(this, OpcionesUsuarios.class);
-
-                firstIntent.putExtra("ID_USER",resultRow.getId_usuario());
-                firstIntent.putExtra("NOM_ROL", resultRow.getRolusu());
-                startActivity(firstIntent);
-
-
+                /*Intent i = new Intent(getApplicationContext(), PersonInfo.class);
+startActivity(i);*/
 
 
             }
@@ -118,15 +105,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         }
         catch(NullPointerException e){
             Toast.makeText(this,"No se pudo conectar con el servidor", 5).show();
-           // return false;
-        } catch (JSONException e) {
-            e.printStackTrace();
+            return false;
         }
 
     }
-
     @SuppressLint("WrongConstant")
-    public JSONObject executePost(String targetURL, String urlParameters) {
+    public String executePost(String targetURL, String urlParameters) {
         int timeout=15000;
         URL url;
         HttpURLConnection connection = null;
@@ -160,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 response.append(line);
             }
             rd.close();
-            return new JSONObject(response.toString());
+            return response.toString();
 
         } catch (Exception e) {
             Toast.makeText(this,"Error de conexión "+e.getMessage(), 10).show();
