@@ -122,6 +122,16 @@ public class usuSer {
         else {
             user = null;
         }
+        
+        rs = st.executeQuery("select nombre_rol from roles join usuarios_roles on usuarios_roles.id_rol=roles.id_rol where usuarios_roles.id_usuario='"+user.getIdUsuario()+"'");
+      if (rs.next()) {
+          user.setRolusu(rs.getString(1));
+      }
+       else {
+            user = null;
+        }
+      
+        
         return user;
     }
         
