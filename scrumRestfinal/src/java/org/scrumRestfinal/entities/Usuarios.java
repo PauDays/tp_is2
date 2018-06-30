@@ -63,6 +63,15 @@ public class Usuarios implements Serializable {
     private Boolean estado;
     @OneToMany(mappedBy = "idUsuario")
     private Collection<Sprints> sprintsCollection;
+    private String rolusu;
+
+    public String getRolusu() {
+        return rolusu;
+    }
+
+    public void setRolusu(String rolusu) {
+        this.rolusu = rolusu;
+    }
 
     public Usuarios() {
     }
