@@ -36,10 +36,10 @@ public class UsuariosRoles implements Serializable {
     private Integer idUsuarioRol;
     @JoinColumn(name = "id_rol", referencedColumnName = "id_rol")
     @ManyToOne(optional = false)
-    private Roles idRol;
+    private Integer idRol;
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     @ManyToOne(optional = false)
-    private Usuarios idUsuario;
+    private Integer idUsuario;
 
     public UsuariosRoles() {
     }
@@ -56,19 +56,19 @@ public class UsuariosRoles implements Serializable {
         this.idUsuarioRol = idUsuarioRol;
     }
 
-    public Roles getIdRol() {
+    public Integer getIdRol() {
         return idRol;
     }
 
-    public void setIdRol(Roles idRol) {
+    public void setIdRol(Integer idRol) {
         this.idRol = idRol;
     }
 
-    public Usuarios getIdUsuario() {
+    public Integer getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Usuarios idUsuario) {
+    public void setIdUsuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
     }
 
