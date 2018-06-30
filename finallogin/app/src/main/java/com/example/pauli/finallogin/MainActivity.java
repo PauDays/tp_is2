@@ -11,9 +11,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -58,26 +62,19 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
        @Override
     public void onClick(View view) {
         if(view == ok){
-            boolean answer=Login();
-         if (answer==true)
-            {
-                Intent firstIntent= new Intent(this, OpcionesUsuarios.class);
-                startActivity(firstIntent);
-            }
-            else
-            {
-                Toast.makeText(MainActivity.this,"NOPE", Toast.LENGTH_SHORT).show();
-            }
+          //  boolean answer=Login();
+            Login();
+
         }
     }
     
     @SuppressLint("WrongConstant")
-    public boolean Login(){
+    public void Login(){
         //recupera los valores ingresados por el usuario
 
         EditText editTextUserName = findViewById(R.id.txt_username);
         EditText editTextPassword = findViewById(R.id.txt_password);
-        String message;
+        JSONObject message=new JSONObject();
         
         JSONObject loginParams = new JSONObject();
 
@@ -91,23 +88,29 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         try {
-            message = executePost("http://192.168.0.11:8085/scrumRestfinal/webresources/org.scrumrestfinal.entities.usuarios/login", loginParams.toString());
+            message = executePost("http://192.168.0.36:8084/scrumRestfinal/webresources/org.scrumrestfinal.entities.usuarios/login", loginParams.toString());
 
-            if (message.equals("")){
+            if (message==null){
                 Toast.makeText(this,"FAILED LOGIN", 5).show();
-                return false;
-            }
-            if(message.equalsIgnoreCase("false")){
-                Toast.makeText(this,"Los datos ingresados no coinciden", 25000).show();
-                return false;
+              //  return false;
 
             }else{
 
                 Toast.makeText(this,"Login correcto", 25000).show();
-                return true;
+               // return true;
+                Person resultRow = new Person();
+                //set that person's attributes
+                resultRow.setId_usuario(message.getInt("idUsuario"));
+                resultRow.setName1(message.getString("rolusu"));
 
-                /*Intent i = new Intent(getApplicationContext(), PersonInfo.class);
-startActivity(i);*/
+
+                Intent firstIntent= new Intent(this, OpcionesUsuarios.class);
+
+                firstIntent.putExtra("ID_USER",resultRow.getId_usuario());
+                firstIntent.putExtra("NOM_ROL", resultRow.getRolusu());
+                startActivity(firstIntent);
+
+
 
 
             }
@@ -115,12 +118,15 @@ startActivity(i);*/
         }
         catch(NullPointerException e){
             Toast.makeText(this,"No se pudo conectar con el servidor", 5).show();
-            return false;
+           // return false;
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
     }
+
     @SuppressLint("WrongConstant")
-    public String executePost(String targetURL, String urlParameters) {
+    public JSONObject executePost(String targetURL, String urlParameters) {
         int timeout=15000;
         URL url;
         HttpURLConnection connection = null;
@@ -154,7 +160,7 @@ startActivity(i);*/
                 response.append(line);
             }
             rd.close();
-            return response.toString();
+            return new JSONObject(response.toString());
 
         } catch (Exception e) {
             Toast.makeText(this,"Error de conexión "+e.getMessage(), 10).show();
