@@ -101,12 +101,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 Person resultRow = new Person();
                 //set that person's attributes
                 resultRow.setId_usuario(message.getInt("idUsuario"));
-                resultRow.setName1(message.getString("rolusu"));
+                resultRow.setRolusu(message.getString("rolusu"));
 
 
                     Intent firstIntent= new Intent(this, OpcionesUsuarios.class);
-                    firstIntent.putExtra("ID_USER",resultRow.getId_usuario());
-                    firstIntent.putExtra("NOM_ROL", resultRow.getRolusu());
+                    firstIntent.putExtra("IDUSER",resultRow.getId_usuario());
+                    firstIntent.putExtra("NOMROL", resultRow.getRolusu());
                     firstIntent.putExtra("Persona",message.toString());
                     startActivity(firstIntent);
 
