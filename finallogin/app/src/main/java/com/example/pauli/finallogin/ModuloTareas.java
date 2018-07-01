@@ -75,8 +75,13 @@ public class ModuloTareas extends AppCompatActivity implements View.OnClickListe
             temTarea.setFechaFin(expectJson.get("fechaFin").getAsString());
             temTarea.setIdSprint(expectJson.get("idSprint").getAsInt());
             arrTareas.add(temTarea);
+<<<<<<< HEAD
             //System.out.println(expectJson.get("nombreUs").toString());
          }
+=======
+            System.out.println(expectJson.get("nombreUs").toString());
+        }
+>>>>>>> 2e7847d2dde6977b6711b5239d0da75b698dff49
 
         myAdapter = new CustomAdapter(this, R.layout.activity_item_tareas, arrTareas);
         listView.setAdapter(myAdapter);
@@ -248,7 +253,7 @@ public class ModuloTareas extends AppCompatActivity implements View.OnClickListe
 
         URL url = new URL("http://192.168.0.13:8085/scrumRestfinal/webresources/org.scrumrestfinal.entities.usershistories/addTarea");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            //constants
+        //constants
 
         conn.setDoOutput(true);
         conn.setRequestMethod("POST");

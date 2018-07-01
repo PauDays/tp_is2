@@ -21,11 +21,13 @@
         </activity>
         <activity android:name=".OpcionesUsuarios" />
         <activity android:name=".ModuloUsuarios" />
-        <activity android:name=".ModuloTareas" />
         <activity android:name=".VentanaEditarUsu" />
-        <activity android:name=".VentanaEliminarUsu" />
         <activity android:name=".VentanaVerUsuario" />
-        <activity android:name=".VentanaCrearUsu"></activity>
+        <activity android:name=".VentanaCrearUsu" />
+        <activity android:name=".windowSeeUser" />
+        <activity android:name=".ModuloTareas" />
+        <activity android:name=".Tareas" />
+        <activity android:name=".windowOnlyModify"></activity>
     </application>
 
 </manifest>

@@ -58,24 +58,24 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-            <Button
-                android:id="@+id/btn_insertar"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Insertar"/>
-            <Button
-                android:id="@+id/btn_editar"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Editar"/>
-            <Button
-                android:id="@+id/btn_eliminar"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Borrar"/>
+        <Button
+            android:id="@+id/btn_insertar"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Insertar"/>
+        <Button
+            android:id="@+id/btn_editar"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Editar"/>
+        <Button
+            android:id="@+id/btn_eliminar"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Borrar"/>
     </LinearLayout>
 
 

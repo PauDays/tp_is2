@@ -1,4 +1,5 @@
 package com.example.pauli.finallogin;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.StrictMode;
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
         }
     }
-
+    
     @SuppressLint("WrongConstant")
     public void Login(){
         //recupera los valores ingresados por el usuario
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         EditText editTextUserName = findViewById(R.id.txt_username);
         EditText editTextPassword = findViewById(R.id.txt_password);
         JSONObject message=new JSONObject();
-
+        
         JSONObject loginParams = new JSONObject();
 
         try {
@@ -100,14 +101,19 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 Person resultRow = new Person();
                 //set that person's attributes
                 resultRow.setId_usuario(message.getInt("idUsuario"));
-                resultRow.setName1(message.getString("rolusu"));
+                resultRow.setRolusu(message.getString("rolusu"));
 
 
-                Intent firstIntent= new Intent(this, OpcionesUsuarios.class);
+                    Intent firstIntent= new Intent(this, OpcionesUsuarios.class);
+                    firstIntent.putExtra("IDUSER",resultRow.getId_usuario());
+                    firstIntent.putExtra("NOMROL", resultRow.getRolusu());
+                    firstIntent.putExtra("Persona",message.toString());
+                    startActivity(firstIntent);
 
-                firstIntent.putExtra("ID_USER",resultRow.getId_usuario());
-                firstIntent.putExtra("NOM_ROL", resultRow.getRolusu());
-                startActivity(firstIntent);
+
+
+
+
 
 
 
