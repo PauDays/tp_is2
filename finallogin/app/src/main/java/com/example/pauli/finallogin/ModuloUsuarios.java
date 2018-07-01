@@ -14,31 +14,31 @@ public class ModuloUsuarios extends AppCompatActivity {
         setContentView(R.layout.activity_modulo_usuarios);
         Button btCrearUsu, btEditarUsu, btEliminarUsu, btVerUsu;
 
-        btCrearUsu = (Button) findViewById(R.id.btCrearUsuario);
+        //btCrearUsu = (Button) findViewById(R.id.btCrearUsuario);
         btEditarUsu=(Button)findViewById(R.id.btEditarUsuario);
-        btEliminarUsu=(Button)findViewById(R.id.btEliminarUsuario);
+       // btEliminarUsu=(Button)findViewById(R.id.btEliminarUsuario);
         btVerUsu=(Button)findViewById(R.id.btVerUsuario);
 
-        btCrearUsu.setOnClickListener(new View.OnClickListener() {
+       /* btCrearUsu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View V) {
                 startActivity(new Intent(ModuloUsuarios.this, VentanaCrearUsu.class));
             }
-        });
+        });*/
 
         btEditarUsu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View V) {
-                startActivity(new Intent(ModuloUsuarios.this, VentanaEditarUsu.class));
+                startActivity(new Intent(ModuloUsuarios.this, windowSeeUser.class));
             }
         });
 
-        btEliminarUsu.setOnClickListener(new View.OnClickListener() {
+       /* btEliminarUsu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View V) {
                 startActivity(new Intent(ModuloUsuarios.this, VentanaEliminarUsu.class));
             }
-        });
+        });*/
 
         btVerUsu.setOnClickListener(new View.OnClickListener() {
             @Override

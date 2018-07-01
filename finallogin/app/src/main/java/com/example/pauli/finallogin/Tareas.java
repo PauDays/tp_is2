@@ -17,7 +17,7 @@ public class Tareas {
 
 
     public Tareas(Integer idUS, String nombreUS, Integer idUsuarioCreador, Integer
-    idUsuarioEditor, String estado, String fecha, String fecha_fin, Integer idSprint) {
+            idUsuarioEditor, String estado, String fecha, String fecha_fin, Integer idSprint) {
         this.idSprint = idSprint;
         this.nombreUS = nombreUS;
         this.idUsuarioCreador= idUsuarioCreador;

@@ -20,7 +20,6 @@
         android:ems="10"
         android:hint="Nombre del Rol"
         android:inputType="textPersonName"
-        android:text="Nombre del Rol"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +52,7 @@
         android:ems="10"
         android:hint="Password"
         android:inputType="textPersonName"
-        android:text="Password"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +71,7 @@
         android:ems="10"
         android:hint="Mail"
         android:inputType="textPersonName"
-        android:text="Mail"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -89,9 +88,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="Nombre de @string/string_nombre_de_usuario"
+        android:hint="Username"
         android:inputType="textPersonName"
-        android:text="Usuario"
+
         app:layout_constraintBottom_toTopOf="@+id/editTextMail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -110,7 +109,7 @@
         android:ems="10"
         android:hint="Apellido"
         android:inputType="textPersonName"
-        android:text="Apellido"
+
         app:layout_constraintBottom_toTopOf="@+id/editTextUsuario"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -129,7 +128,7 @@
         android:ems="10"
         android:hint="Nombre"
         android:inputType="textPersonName"
-        android:text="Nombre"
+
         app:layout_constraintBottom_toTopOf="@+id/editTextApellido"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

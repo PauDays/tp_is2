@@ -15,10 +15,9 @@
         android:layout_marginTop="32dp"
         android:layout_x="128dip"
         android:layout_y="132dip"
-        android:hint="@string/string_nombre_de_usuario"
         android:inputType="text"
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@id/lbl_username"
+        app:layout_constraintStart_toEndOf="@id/lbl_name"
         app:layout_constraintTop_toTopOf="parent"></EditText>
 
     <EditText
@@ -30,7 +29,6 @@
         android:layout_marginTop="32dp"
         android:layout_x="128dip"
         android:layout_y="192dip"
-        android:hint="@string/string_pass"
         android:inputType="textPassword"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@id/lbl_password"
@@ -50,7 +48,7 @@
         app:layout_constraintTop_toBottomOf="@id/lbl_password"></Button>
 
     <TextView
-        android:id="@+id/lbl_username"
+        android:id="@+id/lbl_name"
         android:layout_width="92dp"
         android:layout_height="23dp"
         android:layout_marginLeft="32dp"
@@ -73,7 +71,7 @@
         android:layout_y="207dip"
         android:text="@string/string_password"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lbl_username"></TextView>
+        app:layout_constraintTop_toBottomOf="@id/lbl_name"></TextView>
 
     <TextView
         android:id="@+id/lbl_top"

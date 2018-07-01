@@ -8,9 +8,9 @@
 
     <Button
         android:id="@+id/btVerUsuario"
-        android:layout_width="260dp"
+        android:layout_width="288dp"
         android:layout_height="81dp"
-        android:text="VER USUARIO"
+        android:text="LISTAR USUARIOS"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,41 +18,14 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.872" />
+        app:layout_constraintVertical_bias="0.52" />
 
-    <Button
-        android:id="@+id/btEliminarUsuario"
-        android:layout_width="275dp"
-        android:layout_height="89dp"
-        android:text="ELIMINAR USUARIO"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.62" />
-
-    <Button
-        android:id="@+id/btCrearUsuario"
-        android:layout_width="260dp"
-        android:layout_height="81dp"
-        android:text="CREAR USUARIO"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.144" />
 
     <Button
         android:id="@+id/btEditarUsuario"
-        android:layout_width="260dp"
+        android:layout_width="292dp"
         android:layout_height="81dp"
-        android:text="EDITAR USUARIO"
+        android:text="GESTIÓN USUARIOS"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,7 +33,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.381" />
+        app:layout_constraintVertical_bias="0.248" />
 
     <TextView
         android:id="@+id/textView2"
