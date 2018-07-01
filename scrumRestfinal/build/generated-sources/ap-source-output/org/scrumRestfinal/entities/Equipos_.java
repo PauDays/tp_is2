@@ -7,7 +7,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 import org.scrumRestfinal.entities.Proyectos;
 import org.scrumRestfinal.entities.Usuarios;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-06-30T12:25:27")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-07-01T11:16:07")
 @StaticMetamodel(Equipos.class)
 public class Equipos_ { 
 

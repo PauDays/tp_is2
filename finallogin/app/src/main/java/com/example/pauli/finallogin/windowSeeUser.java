@@ -65,7 +65,7 @@ public class windowSeeUser extends Activity {
         String message = "";
         /////////////////////////////////
         try {
-            message = executeGet("http://192.168.0.36:8084/scrumRestfinal/webresources/org.scrumrestfinal.entities.usuarios/getusers");
+            message = executeGet("http://192.168.0.13:8085/scrumRestfinal/webresources/org.scrumrestfinal.entities.usuarios/getusers");
             //http://localhost:8084/scrumRestfinal/webresources/org.scrumrestfinal.entities.usuarios/getusers
         } catch (NullPointerException e) {
             Toast.makeText(this, "No se pudo conectar con el servidor", Toast.LENGTH_SHORT).show();

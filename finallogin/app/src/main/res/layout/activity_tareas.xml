@@ -8,6 +8,15 @@
     tools:context="com.example.pauli.finallogin.MainActivity"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/text_titulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:shadowColor="@android:color/background_dark"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:text="TAREAS"
+        android:textSize="26dp" />
     <EditText
         android:id="@+id/edit_nombre_tarea"
         android:hint="Nombre Tarea"
@@ -42,17 +51,6 @@
         android:layout_height="wrap_content"
         android:inputType="" />
 
-    <EditText
-        android:id="@+id/edit_fecha"
-        android:hint="Fecha(yyyy/mm/dd)"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <EditText
-        android:id="@+id/edit_fecha_fin"
-        android:hint="Fecha fin(yyyy/mm/dd)"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -97,4 +95,9 @@
             </ListView>
         </LinearLayout>
     </HorizontalScrollView>
+
+    <Spinner
+        android:id="@+id/planets_spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

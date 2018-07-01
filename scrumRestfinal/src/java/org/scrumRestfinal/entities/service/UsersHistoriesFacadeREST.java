@@ -108,9 +108,11 @@ public class UsersHistoriesFacadeREST extends AbstractFacade<UsersHistories> {
     @Produces("text/plain")
     public String addTarea(UsersHistories s) throws SQLException, ClassNotFoundException, ParseException {
         //System.out.println("-------------------------------------"+s.getFecha());
-        tareas.addTareas(s);
-        String result = "Usuario guardado: " + s.getNombreUs();
-        return result;
+        String resultado = tareas.addTareas(s);
+        if(resultado != "Insertado"){
+            resultado = "No existe sprint";
+        }
+        return resultado;
     }
     
     @PUT
@@ -118,9 +120,13 @@ public class UsersHistoriesFacadeREST extends AbstractFacade<UsersHistories> {
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces("text/plain")
     public String editTarea(@PathParam("id") int id, UsersHistories tarea) throws SQLException, ClassNotFoundException, ParseException {
-        System.out.println("Tarea id: " + tarea);
-        tareas.editarTarea(id, tarea);
-        String result = "Tarea modificada correctamente!";
+        System.out.println("Tarea id: " + id);
+        
+        String result = tareas.editarTarea(id, tarea);
+        if(result != "Actualizado"){
+            result = "No existe sprint";
+        }
+        
         return result;
     }
     
@@ -140,7 +146,8 @@ public class UsersHistoriesFacadeREST extends AbstractFacade<UsersHistories> {
     public String remove(@PathParam("id") int id) throws ClassNotFoundException, SQLException {
         System.err.println("tarea: "+id);
         tareas.eliminarTarea(id);
-        String result = "Usuario eliminado correctamente!";
+        
+        String result = "Eliminado";
         return result;   
 }
     

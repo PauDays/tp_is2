@@ -4,27 +4,27 @@ import java.sql.Date;
 
 public class Tareas {
     private Integer idUS;
-    private String nombreUS;
-    private Integer idUsuarioCreador;
-    private Integer idUsuarioEditor;
+    private String nombreUs;
+    private Integer idUserCreador;
+    private Integer idUserEditor;
     private String estado;
     private String fecha;
-    private String fecha_fin;
+    private String fechaFin;
     private Integer idSprint;
 
     public Tareas(){
     }
 
 
-    public Tareas(Integer idUS, String nombreUS, Integer idUsuarioCreador, Integer
-            idUsuarioEditor, String estado, String fecha, String fecha_fin, Integer idSprint) {
+    public Tareas(Integer idUS, String nombreUs, Integer idUserCreador, Integer
+            idUserEditor, String estado, String fecha, String fechaFin, Integer idSprint) {
         this.idSprint = idSprint;
-        this.nombreUS = nombreUS;
-        this.idUsuarioCreador= idUsuarioCreador;
-        this.idUsuarioEditor = idUsuarioEditor;
+        this.nombreUs = nombreUs;
+        this.idUserCreador= idUserCreador;
+        this.idUserEditor = idUserEditor;
         this.estado = estado;
         this.fecha = fecha;
-        this.fecha_fin = fecha_fin;
+        this.fechaFin = fechaFin;
         this.idUS = idUS;
     }
 
@@ -38,28 +38,28 @@ public class Tareas {
         this.idSprint = idSprint;
     }
 
-    public String getNombreUS() {
-        return nombreUS;
+    public String getNombreUs() {
+        return nombreUs;
     }
 
-    public void setNombreUS(String nombreUS) {
-        this.nombreUS = nombreUS;
+    public void setNombreUs(String nombreUs) {
+        this.nombreUs = nombreUs;
     }
 
-    public Integer getIdUsuarioCreador() {
-        return idUsuarioCreador;
+    public Integer getIdUserCreador() {
+        return idUserCreador;
     }
 
-    public void setIdUsuarioCreador(Integer idUsuarioCreador) {
-        this.idUsuarioCreador = idUsuarioCreador;
+    public void setIdUserCreador(Integer idUserCreador) {
+        this.idUserCreador = idUserCreador;
     }
 
-    public Integer getIdUsuarioEditor() {
-        return idUsuarioEditor;
+    public Integer getIdUserEditor() {
+        return idUserEditor;
     }
 
-    public void setIdUsuarioEditor(Integer idUsuarioEditor) {
-        this.idUsuarioEditor = idUsuarioEditor;
+    public void setIdUserEditor(Integer idUserEditor) {
+        this.idUserEditor = idUserEditor;
     }
 
     public String getEstado() {
@@ -79,11 +79,11 @@ public class Tareas {
     }
 
     public String getFechaFin() {
-        return fecha_fin;
+        return fechaFin;
     }
 
     public void setFechaFin(String fecha_fin) {
-        this.fecha_fin = fecha_fin;
+        this.fechaFin = fecha_fin;
     }
 
     public Integer getIdUS() {

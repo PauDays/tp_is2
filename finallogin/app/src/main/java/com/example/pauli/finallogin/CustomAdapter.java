@@ -43,9 +43,9 @@ public class CustomAdapter extends ArrayAdapter {
         TextView textFechaFin = (TextView) (TextView) convertView.findViewById(R.id.text_fecha_fin);
 
         //tareas.setImageResource(arrTareas.get(position).getIdSprint());
-        textNombreUS.setText(arrTareas.get(position).getNombreUS());
-        textIdUsuarioCreador.setText(arrTareas.get(position).getIdUsuarioCreador().toString());
-        textIdUsuarioEditor.setText(arrTareas.get(position).getIdUsuarioEditor().toString());
+        textNombreUS.setText(arrTareas.get(position).getNombreUs());
+        textIdUsuarioCreador.setText(arrTareas.get(position).getIdUserCreador().toString());
+        textIdUsuarioEditor.setText(arrTareas.get(position).getIdUserEditor().toString());
         textEstado.setText(arrTareas.get(position).getEstado().toString());
         textIdSprint.setText(arrTareas.get(position).getIdSprint().toString());
         System.out.println("++++++++++++++++++++"+arrTareas.get(position).getFecha());

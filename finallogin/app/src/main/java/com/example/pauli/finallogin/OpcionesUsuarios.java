@@ -61,10 +61,12 @@ public class OpcionesUsuarios extends AppCompatActivity {
         bttareas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View V) {
+                System.out.print(rolUsuario);
+                //startActivity(new Intent(OpcionesUsuarios.this, ModuloTareas.class));
                 if (rolUsuario.equals("scrummaster")) {
                     startActivity(new Intent(OpcionesUsuarios.this, ModuloTareas.class));
                 } else if (rolUsuario.equals("usuequipo")) {
-
+                    //startActivity(new Intent(OpcionesUsuarios.this, ModuloTareas.class));
 
                  /*   Intent intentequipo = new Intent(OpcionesUsuarios.this, USUEQUIPO.class);
                     intentequipo.putExtra("idUsuario", idUsuario);
