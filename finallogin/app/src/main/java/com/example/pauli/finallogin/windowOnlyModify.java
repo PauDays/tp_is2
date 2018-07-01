@@ -95,15 +95,15 @@ public class windowOnlyModify extends AppCompatActivity implements View.OnClickL
                 try {
                     message = executePut("http://192.168.0.36:8084/scrumRestfinal/webresources/org.scrumrestfinal.entities.usuarios/editarusuario/"+general+"?", loginParams.toString());
                     if (message.equals("")){
-                        Toast.makeText(windowOnlyModify.this,"No se pudo modifica al usuario seleccionado", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(windowOnlyModify.this,"No se pudo modificar al usuario seleccionado", Toast.LENGTH_SHORT).show();
 
                     }else{
 
                         Toast.makeText(windowOnlyModify.this,message, Toast.LENGTH_LONG).show();
 
-                        Intent main = new Intent(windowOnlyModify.this, windowSeeUser.class)
+                       /* Intent main = new Intent(windowOnlyModify.this, OpcionesUsuarios.class)
                                 .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(main);
+                        startActivity(main);*/
                     }
 
                 }
@@ -121,7 +121,7 @@ public class windowOnlyModify extends AppCompatActivity implements View.OnClickL
     public void returnHome() {
 
         Intent home_intent = new Intent(getApplicationContext(),
-                windowSeeUser.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                OpcionesUsuarios.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         startActivity(home_intent);
     }
