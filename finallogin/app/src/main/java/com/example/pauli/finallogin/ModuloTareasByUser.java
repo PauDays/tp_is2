@@ -21,7 +21,10 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class ModuloTareasByUser extends AppCompatActivity implements View.OnClickListener{
     int id_e = -1;
@@ -40,6 +43,10 @@ public class ModuloTareasByUser extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tareas_by_user);
         getTareas();
+        java.text.SimpleDateFormat dateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd");
+        Date hoy = Calendar.getInstance().getTime();
+
+        Date fechaFinal= null;
         Intent nuevoIntent = getIntent();
         int idUsuario = nuevoIntent.getIntExtra("idUsuario", 0);
         System.out.println("*******************************+-+-+-+-+-+-+-+"+idUsuario);
@@ -59,6 +66,18 @@ public class ModuloTareasByUser extends AppCompatActivity implements View.OnClic
             temTarea.setEstado(expectJson.get("estado").getAsString());
             temTarea.setFecha(expectJson.get("fecha").getAsString());
             temTarea.setFechaFin(expectJson.get("fechaFin").getAsString());
+            try {
+                fechaFinal= dateFormat.parse(temTarea.getFechaFin());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            int dias=(int) ((fechaFinal.getTime()-hoy.getTime())/86400000);
+            System.out.println("/*/*/*/*/*/*/**/*/*/diasssss> "+dias+hoy.getTime());
+            if (dias+1 == 2){
+                Toast.makeText(ModuloTareasByUser.this,"La tarea "+temTarea.getNombreUs()+" finalizara en 2 dias",Toast.LENGTH_LONG).show();
+            }
+
+
             temTarea.setIdSprint(expectJson.get("idSprint").getAsInt());
             arrTareas.add(temTarea);
          }

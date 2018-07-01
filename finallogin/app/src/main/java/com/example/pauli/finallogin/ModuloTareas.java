@@ -23,13 +23,12 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import javax.net.ssl.HttpsURLConnection;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
 
 public class ModuloTareas extends AppCompatActivity implements View.OnClickListener{
     int id_e = -1;
@@ -50,7 +49,10 @@ public class ModuloTareas extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tareas);
         getTareas();
+        java.text.SimpleDateFormat dateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd");
+        Date hoy = Calendar.getInstance().getTime();
 
+        Date fechaFinal= null;
 
         android.content.Intent in = getIntent();
         int us = in.getIntExtra("ID_USER", 0);
@@ -72,6 +74,16 @@ public class ModuloTareas extends AppCompatActivity implements View.OnClickListe
             temTarea.setEstado(expectJson.get("estado").getAsString());
             temTarea.setFecha(expectJson.get("fecha").getAsString());
             temTarea.setFechaFin(expectJson.get("fechaFin").getAsString());
+            try {
+                fechaFinal= dateFormat.parse(temTarea.getFechaFin());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            int dias=(int) ((fechaFinal.getTime()-hoy.getTime())/86400000);
+            System.out.println("/*/*/*/*/*/*/**/*/*/diasssss> "+dias+hoy.getTime());
+            if (dias+1 == 2){
+                Toast.makeText(ModuloTareas.this,"La tarea "+temTarea.getNombreUs()+" finalizara en 2 dias",Toast.LENGTH_LONG).show();
+            }
             temTarea.setIdSprint(expectJson.get("idSprint").getAsInt());
             arrTareas.add(temTarea);
          }
@@ -124,7 +136,7 @@ public class ModuloTareas extends AppCompatActivity implements View.OnClickListe
                 Spinner spinner = (Spinner) findViewById(R.id.planets_spinner);
                 System.out.println("Entra onClic+++"+mensaje);
                 myAdapter.notifyDataSetChanged();
-                Toast.makeText(ModuloTareas.this, mensaje, Toast.LENGTH_SHORT).show();
+                Toast .makeText(ModuloTareas.this, mensaje, Toast.LENGTH_SHORT).show();
                 spinner.setAdapter(myAdapter);
                 break;
             case R.id.btn_editar:
