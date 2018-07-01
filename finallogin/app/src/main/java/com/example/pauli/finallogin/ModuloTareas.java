@@ -48,15 +48,23 @@ public class ModuloTareas extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tareas);
         getTareas();
+
+
+        android.content.Intent in = getIntent();
+        int us = in.getIntExtra("ID_USER", 0);
+
+
+        String usRol = in.getStringExtra("NOM_ROL");
+        System.out.println("+++++++++++++++++++++++++++++++++++++"+us);
         listView = (ListView) findViewById(R.id.list_tareas);
         arrTareas = new ArrayList<Tareas>();
         String resultado = executeGET();
         Gson gson = new Gson();
-        System.out.print(resultado);
+        //System.out.print(resultado);
         JsonArray task = gson.fromJson(resultado, JsonArray.class);
         for (int i = 0; i <task.size (); i ++) {
             JsonObject expectJson = task.get(i).getAsJsonObject ();
-            System.out.println("*******************************"+expectJson+expectJson.get("idUs"));
+            //System.out.println("*******************************"+expectJson+expectJson.get("idUs"));
             Tareas temTarea = new Tareas();
             temTarea.setIdUS(Integer.parseInt(expectJson.get("idUs").toString()));
             temTarea.setNombreUS(expectJson.get("nombreUs").toString());
@@ -67,7 +75,7 @@ public class ModuloTareas extends AppCompatActivity implements View.OnClickListe
             temTarea.setFechaFin(expectJson.get("fechaFin").getAsString());
             temTarea.setIdSprint(expectJson.get("idSprint").getAsInt());
             arrTareas.add(temTarea);
-            System.out.println(expectJson.get("nombreUs").toString());
+            //System.out.println(expectJson.get("nombreUs").toString());
          }
 
         myAdapter = new CustomAdapter(this, R.layout.activity_item_tareas, arrTareas);
@@ -130,6 +138,7 @@ public class ModuloTareas extends AppCompatActivity implements View.OnClickListe
                     e.printStackTrace();
                 }
                 myAdapter.notifyDataSetChanged();
+                Toast.makeText(ModuloTareas.this, "Insertado", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_editar:
                 Tareas tem = new Tareas();
@@ -152,6 +161,7 @@ public class ModuloTareas extends AppCompatActivity implements View.OnClickListe
                 id_e = -1;
 
                 myAdapter.notifyDataSetChanged();
+                Toast.makeText(ModuloTareas.this, "Actualizado", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_eliminar:
                 Tareas tem2 = new Tareas();
@@ -166,7 +176,7 @@ public class ModuloTareas extends AppCompatActivity implements View.OnClickListe
 
 
                 try {
-                    executePUT(tem2, arrTareas.get(id_e).getIdSprint());
+                    executeDELETE(arrTareas.get(id_e).getIdUS());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -201,7 +211,7 @@ public class ModuloTareas extends AppCompatActivity implements View.OnClickListe
                     (con.getInputStream())));
 
             String output = br.readLine();
-            System.out.println("Output from Server .... \n");
+            //System.out.println("Output from Server .... \n");
             while (br.readLine() != null) {
                 output=br.readLine();
             }
@@ -303,9 +313,9 @@ public class ModuloTareas extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void executeDELETE(Tareas tem, int id) throws IOException {
+    private void executeDELETE(int id) throws IOException {
 
-        String spockAsJson = new Gson().toJson(tem);
+        //String spockAsJson = new Gson().toJson(tem);
 
 
         //constants
@@ -313,15 +323,12 @@ public class ModuloTareas extends AppCompatActivity implements View.OnClickListe
 
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setDoOutput(true);
-        conn.setRequestMethod("PUT");
+        conn.setRequestMethod("DELETE");
         //conn.setRequestProperty("Content-Type", "application/json");
-        System.out.println("***********************************************"+spockAsJson);
+
         conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
         //os.write(json.getBytes("UTF-8"));
 
-        OutputStream os = conn.getOutputStream();
-        os.write(spockAsJson.getBytes("UTF-8"));
-        os.flush();
         System.out.println("***********************************************"+conn.getResponseMessage());
 
 
