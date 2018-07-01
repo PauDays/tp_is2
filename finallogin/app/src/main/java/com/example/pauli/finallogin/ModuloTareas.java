@@ -302,4 +302,40 @@ public class ModuloTareas extends AppCompatActivity implements View.OnClickListe
 
 
     }
+
+    private void executeDELETE(Tareas tem, int id) throws IOException {
+
+        String spockAsJson = new Gson().toJson(tem);
+
+
+        //constants
+        URL url = new URL("http://192.168.0.13:8085/scrumRestfinal/webresources/org.scrumrestfinal.entities.sprints/editarTarea/"+id+"?");
+
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setDoOutput(true);
+        conn.setRequestMethod("PUT");
+        //conn.setRequestProperty("Content-Type", "application/json");
+        System.out.println("***********************************************"+spockAsJson);
+        conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+        //os.write(json.getBytes("UTF-8"));
+
+        OutputStream os = conn.getOutputStream();
+        os.write(spockAsJson.getBytes("UTF-8"));
+        os.flush();
+        System.out.println("***********************************************"+conn.getResponseMessage());
+
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(
+                (conn.getInputStream())));
+
+        String output;
+        System.out.println("Output from Server .... \n");
+        while ((output = br.readLine()) != null) {
+            System.out.println("**********************************************************"+output);
+        }
+
+        conn.disconnect();
+
+
+    }
 }

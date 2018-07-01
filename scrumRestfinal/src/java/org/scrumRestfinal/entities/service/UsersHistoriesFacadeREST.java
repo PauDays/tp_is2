@@ -134,4 +134,14 @@ public class UsersHistoriesFacadeREST extends AbstractFacade<UsersHistories> {
         return resultado;
     }
     
+    @DELETE
+    @Path("eliminarTarea/{id}")
+    @Produces("text/plain")
+    public String remove(@PathParam("id") int id) throws ClassNotFoundException, SQLException {
+        System.err.println("tarea: "+id);
+        tareas.eliminarTarea(id);
+        String result = "Usuario eliminado correctamente!";
+        return result;   
+}
+    
 }

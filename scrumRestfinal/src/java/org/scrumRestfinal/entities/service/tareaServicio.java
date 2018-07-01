@@ -16,6 +16,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import org.scrumRestfinal.entities.Conexion;
 import org.scrumRestfinal.entities.Sprints;
 import org.scrumRestfinal.entities.UsersHistories;
@@ -173,4 +176,19 @@ public class tareaServicio {
         conex.close();
         con.cerrarBD();
     }
+     
+     public void eliminarTarea(int id) throws ClassNotFoundException, SQLException {
+      //  String sql="delete from \"usuarios\" set status = false where usuario = ?";
+       String sql="delete from users_histories where id_us = ?";
+        conex = con.conectarBD();
+        
+        PreparedStatement pst = conex.prepareStatement(sql);
+        pst.setInt(1, id);
+        pst.execute();
+        pst.close();
+        conex.close();
+        con.cerrarBD();
+    }
+     
+    
 }
