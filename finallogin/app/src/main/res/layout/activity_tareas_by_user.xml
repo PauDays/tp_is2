@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.pauli.finallogin.MainActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/text_titulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:shadowColor="@android:color/background_dark"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:text="TAREAS"
+        android:textSize="26dp" />
+    <EditText
+        android:id="@+id/edit_nombre_tarea"
+        android:hint="Nombre Tarea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="" />
+
+    <EditText
+        android:id="@+id/edit_usuario_creador"
+        android:hint="Usuario Creador"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/edit_usuario_editor"
+        android:hint="Usuario Editor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="" />
+
+    <EditText
+        android:id="@+id/edit_id_sprint"
+        android:hint="Sprint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="" />
+
+    <EditText
+        android:id="@+id/edit_estado"
+        android:hint="Estado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="" />
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btn_editar"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/fab_margin"
+            android:text="Editar"/>
+    </LinearLayout>
+
+
+    <HorizontalScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scrollbars="horizontal">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal">
+            <ListView
+                android:id="@+id/list_tareas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1" >
+            </ListView>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <Spinner
+        android:id="@+id/planets_spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

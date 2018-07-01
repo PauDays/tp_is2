@@ -135,7 +135,7 @@ public class UsersHistoriesFacadeREST extends AbstractFacade<UsersHistories> {
     @Path("/idUsuarioTareas/{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public ArrayList<UsersHistories> findId(@PathParam("id") Integer id) throws SQLException, ClassNotFoundException {
-        System.out.println("Tarea id: " + id);
+        System.out.println("Usuario id: " + id);
         ArrayList<UsersHistories> resultado = tareas.getUsuarioTareas(id);
         return resultado;
     }

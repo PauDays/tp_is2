@@ -66,12 +66,9 @@ public class OpcionesUsuarios extends AppCompatActivity {
                 if (rolUsuario.equals("scrummaster")) {
                     startActivity(new Intent(OpcionesUsuarios.this, ModuloTareas.class));
                 } else if (rolUsuario.equals("usuequipo")) {
-                    //startActivity(new Intent(OpcionesUsuarios.this, ModuloTareas.class));
-
-                 /*   Intent intentequipo = new Intent(OpcionesUsuarios.this, USUEQUIPO.class);
-                    intentequipo.putExtra("idUsuario", idUsuario);
-                    startActivity(intentequipo);
-                   */
+                    Intent intentusuequipo = new Intent(OpcionesUsuarios.this, ModuloTareasByUser.class);
+                    intentusuequipo.putExtra("idUsuario", idUsuario);
+                    startActivity(intentusuequipo);
                 }
             }
 
