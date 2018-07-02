@@ -41,17 +41,19 @@ public class ModuloTareasByUser extends AppCompatActivity implements View.OnClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tareas_by_user);
+        setContentView(R.layout.activity_modulo_tareas_by_user);
         getTareas();
         java.text.SimpleDateFormat dateFormat = new java.text.SimpleDateFormat("yyyy-MM-dd");
         Date hoy = Calendar.getInstance().getTime();
 
         Date fechaFinal= null;
+
         Intent nuevoIntent = getIntent();
         int idUsuario = nuevoIntent.getIntExtra("idUsuario", 0);
         System.out.println("*******************************+-+-+-+-+-+-+-+"+idUsuario);
         listView = (ListView) findViewById(R.id.list_tareas);
         arrTareas = new ArrayList<Tareas>();
+
         String resultado = executeGET(idUsuario);
         Gson gson = new Gson();
         JsonArray task = gson.fromJson(resultado, JsonArray.class);
@@ -80,7 +82,7 @@ public class ModuloTareasByUser extends AppCompatActivity implements View.OnClic
 
             temTarea.setIdSprint(expectJson.get("idSprint").getAsInt());
             arrTareas.add(temTarea);
-         }
+        }
 
         myAdapter = new CustomAdapter(this, R.layout.activity_item_tareas, arrTareas);
         listView.setAdapter(myAdapter);
@@ -114,21 +116,21 @@ public class ModuloTareasByUser extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
+        RestCalling RC=new RestCalling();
         switch (v.getId()){
             case R.id.btn_editar:
                 try {
 
                     Tareas tem = new Tareas();
                     tem.setNombreUs(editTextNombre.getText().toString());
-                    tem.setIdUserCreador(Integer.parseInt(editTextIdUsuarioCreador.getText().toString()));
-                    System.out.println("222222222222222222+++"+editTextIdUsuarioCreador.getText().toString()+"-*-*-*-*"+editTextIdUsuarioEditor.getText().toString());
                     tem.setIdUserEditor(Integer.parseInt(editTextIdUsuarioEditor.getText().toString()));
+                    tem.setIdUserCreador(Integer.parseInt(editTextIdUsuarioCreador.getText().toString()));
                     tem.setEstado(editTextEstado.getText().toString());
                     tem.setIdSprint(Integer.parseInt(editTextIdSprint.getText().toString()));
 
                     System.out.println("****************Id: "+ id_e );
 
-                    mensaje = executePUT(tem, arrTareas.get(id_e).getIdUS());
+                    mensaje = RC.executePUT(tem, arrTareas.get(id_e).getIdUS());
                     if (mensaje.contains("Actualizado")){
                         arrTareas.get(id_e).setNombreUs(tem.getNombreUs());
                         arrTareas.get(id_e).setIdUserEditor(tem.getIdUserEditor());
@@ -144,7 +146,7 @@ public class ModuloTareasByUser extends AppCompatActivity implements View.OnClic
                 myAdapter.notifyDataSetChanged();
                 Toast.makeText(ModuloTareasByUser.this, mensaje, Toast.LENGTH_SHORT).show();
                 break;
-            }
+        }
     }
 
     public String executeGET(int id) {
@@ -152,8 +154,9 @@ public class ModuloTareasByUser extends AppCompatActivity implements View.OnClic
         String url;
         HttpURLConnection connection = null;
 
+
         try {
-            url = "http://192.168.0.13:8085/scrumRestfinal/webresources/org.scrumrestfinal.entities.usershistories/idUsuarioTareas/"+id+"?";
+            url = "http://192.168.0.36:8084/scrumRestfinal/webresources/org.scrumrestfinal.entities.usershistories/idUsuarioTareas/"+id+"?";
 
             URL loginUrl = new URL(url);
             HttpURLConnection con = (HttpURLConnection) loginUrl.openConnection();
@@ -189,42 +192,5 @@ public class ModuloTareasByUser extends AppCompatActivity implements View.OnClic
 
     }
 
-    private String executePUT(Tareas tem, int id) throws IOException {
-
-        String spockAsJson = new Gson().toJson(tem);
-
-        System.out.println("+-+-+-+-+-+-+"+id+"*-*-*-"+tem);
-
-        //constants
-        URL url = new URL("http://192.168.0.13:8085/scrumRestfinal/webresources/org.scrumrestfinal.entities.usershistories/editarTarea/"+id+"?");
-
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setDoOutput(true);
-        conn.setRequestMethod("PUT");
-        conn.setRequestProperty("Content-Type", "application/json");
-        System.out.println("***********************************************"+spockAsJson);
-        //conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-
-
-        OutputStream os = conn.getOutputStream();
-        os.write(spockAsJson.getBytes("UTF-8"));
-
-        os.flush();
-        System.out.println("***********************************************"+conn.getResponseMessage());
-
-
-        BufferedReader br = new BufferedReader(new InputStreamReader(
-                (conn.getInputStream())));
-
-        String output =  br.readLine();
-        System.out.println("Output from Server .... \n");
-        if (br.readLine()!=null) {
-            System.out.println("**********************************************************"+output);
-        }
-
-        conn.disconnect();
-        return output;
-
-    }
 
 }

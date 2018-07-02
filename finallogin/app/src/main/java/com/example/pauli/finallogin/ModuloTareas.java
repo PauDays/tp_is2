@@ -23,12 +23,16 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import javax.net.ssl.HttpsURLConnection;
 
 public class ModuloTareas extends AppCompatActivity implements View.OnClickListener{
     int id_e = -1;
@@ -44,6 +48,7 @@ public class ModuloTareas extends AppCompatActivity implements View.OnClickListe
     ArrayList<Tareas> arrTareas, pruebas;
     CustomAdapter myAdapter;
     String mensaje = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,15 +62,19 @@ public class ModuloTareas extends AppCompatActivity implements View.OnClickListe
         android.content.Intent in = getIntent();
         int us = in.getIntExtra("ID_USER", 0);
         String usRol = in.getStringExtra("NOM_ROL");
-        System.out.println("+++++++++++++++++++++++++++++++++++++"+us);
+
+
         listView = (ListView) findViewById(R.id.list_tareas);
         arrTareas = new ArrayList<Tareas>();
+      //  RestCalling rc=new RestCalling();
         String resultado = executeTareasGET();
+
+
         Gson gson = new Gson();
         JsonArray task = gson.fromJson(resultado, JsonArray.class);
         for (int i = 0; i <task.size (); i ++) {
             JsonObject expectJson = task.get(i).getAsJsonObject ();
-            //System.out.println("*******************************"+expectJson+expectJson.get("idUs"));
+
             Tareas temTarea = new Tareas();
             temTarea.setIdUS(Integer.parseInt(expectJson.get("idUs").toString()));
             temTarea.setNombreUs(expectJson.get("nombreUs").getAsString());
@@ -77,16 +86,20 @@ public class ModuloTareas extends AppCompatActivity implements View.OnClickListe
             try {
                 fechaFinal= dateFormat.parse(temTarea.getFechaFin());
             } catch (ParseException e) {
-                e.printStackTrace();
-            }
+                 e.printStackTrace();
+                           }
             int dias=(int) ((fechaFinal.getTime()-hoy.getTime())/86400000);
             System.out.println("/*/*/*/*/*/*/**/*/*/diasssss> "+dias+hoy.getTime());
             if (dias+1 == 2){
                 Toast.makeText(ModuloTareas.this,"La tarea "+temTarea.getNombreUs()+" finalizara en 2 dias",Toast.LENGTH_LONG).show();
             }
+
+
+
             temTarea.setIdSprint(expectJson.get("idSprint").getAsInt());
             arrTareas.add(temTarea);
-         }
+
+        }
 
         myAdapter = new CustomAdapter(this, R.layout.activity_item_tareas, arrTareas);
         listView.setAdapter(myAdapter);
@@ -123,34 +136,36 @@ public class ModuloTareas extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        RestCalling rc=new RestCalling();
         switch (v.getId()){
             case R.id.btn_insertar:
 
                 //Toast.makeText(this, "Clic en insertar", Toast.LENGTH_SHORT).show();
+
                 Toast.makeText(ModuloTareas.this, "Iniciando registro", Toast.LENGTH_SHORT).show();
                 try {
                     mensaje = executeTareasPOST();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
+             //   Spinner spinner = (Spinner) findViewById(R.id.planets_spinner);
                 System.out.println("Entra onClic+++"+mensaje);
                 myAdapter.notifyDataSetChanged();
-                Toast .makeText(ModuloTareas.this, mensaje, Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(ModuloTareas.this, mensaje, Toast.LENGTH_SHORT).show();
+               // spinner.setAdapter(myAdapter);
                 break;
             case R.id.btn_editar:
                 try {
 
                     Tareas tem = new Tareas();
                     tem.setNombreUs(editTextNombre.getText().toString());
-                    tem.setIdUserCreador(Integer.parseInt(editTextIdUsuarioCreador.getText().toString()));
                     tem.setIdUserEditor(Integer.parseInt(editTextIdUsuarioEditor.getText().toString()));
+                    tem.setIdUserCreador(Integer.parseInt(editTextIdUsuarioCreador.getText().toString()));
                     tem.setEstado(editTextEstado.getText().toString());
                     tem.setIdSprint(Integer.parseInt(editTextIdSprint.getText().toString()));
 
                     System.out.println("****************Id: "+ id_e );
-
+                   // RestCalling rc=new RestCalling();
                     mensaje = executeTareasPUT(tem, arrTareas.get(id_e).getIdUS());
                     if (mensaje.contains("Actualizado")){
                         arrTareas.get(id_e).setNombreUs(tem.getNombreUs());
@@ -163,6 +178,7 @@ public class ModuloTareas extends AppCompatActivity implements View.OnClickListe
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+              //  id_e = -1;
 
                 myAdapter.notifyDataSetChanged();
                 Toast.makeText(ModuloTareas.this, mensaje, Toast.LENGTH_SHORT).show();
@@ -179,11 +195,13 @@ public class ModuloTareas extends AppCompatActivity implements View.OnClickListe
 
 
                 try {
+                   // rc.executeDELETE();
                     executeDELETE(arrTareas.get(id_e).getIdUS());
                     arrTareas.remove(id_e);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+              //  id_e = -1;
                 myAdapter.notifyDataSetChanged();
                 Toast.makeText(ModuloTareas.this, "Eliminado", Toast.LENGTH_SHORT).show();
                 break;
@@ -196,7 +214,7 @@ public class ModuloTareas extends AppCompatActivity implements View.OnClickListe
         HttpURLConnection connection = null;
 
         try {
-            url = "http://192.168.0.13:8085/scrumRestfinal/webresources/org.scrumrestfinal.entities.usershistories/getTareas?";
+            url = "http://192.168.0.36:8084/scrumRestfinal/webresources/org.scrumrestfinal.entities.usershistories/getTareas?";
 
             URL loginUrl = new URL(url);
             HttpURLConnection con = (HttpURLConnection) loginUrl.openConnection();
@@ -236,6 +254,7 @@ public class ModuloTareas extends AppCompatActivity implements View.OnClickListe
 
     }
 
+
     private String executeTareasPOST() throws IOException {
         Tareas tem = new Tareas();
         tem.setNombreUs(editTextNombre.getText().toString());
@@ -247,7 +266,7 @@ public class ModuloTareas extends AppCompatActivity implements View.OnClickListe
         String spockAsJson = new Gson().toJson(tem);
         System.out.println("*/*/*/*/*//*/*/*/*//*"+spockAsJson);
 
-        URL url = new URL("http://192.168.0.13:8085/scrumRestfinal/webresources/org.scrumrestfinal.entities.usershistories/addTarea");
+        URL url = new URL("http://192.168.0.36:8084/scrumRestfinal/webresources/org.scrumrestfinal.entities.usershistories/addTarea");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         //constants
 
@@ -292,7 +311,7 @@ public class ModuloTareas extends AppCompatActivity implements View.OnClickListe
         System.out.println("+-+-+-+-+-+-+"+id+"*-*-*-"+tem);
 
         //constants
-        URL url = new URL("http://192.168.0.13:8085/scrumRestfinal/webresources/org.scrumrestfinal.entities.usershistories/editarTarea/"+id+"?");
+        URL url = new URL("http://192.168.0.36:8084/scrumRestfinal/webresources/org.scrumrestfinal.entities.usershistories/editarTarea/"+id+"?");
 
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setDoOutput(true);
@@ -329,7 +348,7 @@ public class ModuloTareas extends AppCompatActivity implements View.OnClickListe
 
         System.out.println("Dentro de DELETE");
         //constants
-        URL url = new URL("http://192.168.0.13:8085/scrumRestfinal/webresources/org.scrumrestfinal.entities.usershistories/eliminarTarea/"+id+"?");
+        URL url = new URL("http://192.168.0.36:8084/scrumRestfinal/webresources/org.scrumrestfinal.entities.usershistories/eliminarTarea/"+id+"?");
 
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setDoOutput(true);
@@ -355,4 +374,6 @@ public class ModuloTareas extends AppCompatActivity implements View.OnClickListe
 
 
     }
+
+
 }

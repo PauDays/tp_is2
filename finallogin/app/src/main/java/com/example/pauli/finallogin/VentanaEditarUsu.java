@@ -37,8 +37,7 @@ public class VentanaEditarUsu extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ventana_editar_usu);
 
-       /* dbcon = new SQLControlador(this);
-        dbcon.abrirBaseDeDatos();*/
+
 
         et1 = (EditText) findViewById(R.id.et_nombre);
         et2 = (EditText) findViewById(R.id.et_apellido);
@@ -50,7 +49,7 @@ public class VentanaEditarUsu extends Activity implements OnClickListener {
         btnEliminar = (Button) findViewById(R.id.btnEliminar);
 
         Intent i = getIntent();
-       // String memberID = i.getStringExtra("miembroId");
+
 
          memberid=i.getIntExtra("miembroId",0);
         String memberName = i.getStringExtra("miembroNombre");
@@ -80,6 +79,7 @@ public class VentanaEditarUsu extends Activity implements OnClickListener {
         // TODO Auto-generated method stub
         Person modificado=new Person();
         String message;
+        RestCalling rc=new RestCalling();
         switch (v.getId()) {
             case R.id.btnActualizar:
                /***********************/
@@ -103,8 +103,9 @@ public class VentanaEditarUsu extends Activity implements OnClickListener {
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                 StrictMode.setThreadPolicy(policy);
 
+
                 try {
-                    message = executePut("http://192.168.0.36:8084/scrumRestfinal/webresources/org.scrumrestfinal.entities.usuarios/editarusuario/"+general+"?", loginParams.toString());
+                    message = rc.executePut("http://192.168.0.36:8084/scrumRestfinal/webresources/org.scrumrestfinal.entities.usuarios/editarusuario/"+general+"?", loginParams.toString());
                     if (message.equals("")){
                         Toast.makeText(VentanaEditarUsu.this,"No se pudo modifica al usuario seleccionado", Toast.LENGTH_SHORT).show();
 
@@ -130,7 +131,7 @@ public class VentanaEditarUsu extends Activity implements OnClickListener {
              //   dbcon.deleteData(member_id);
 
               try {
-                    message = executeDelete("http://192.168.0.36:8084/scrumRestfinal/webresources/org.scrumrestfinal.entities.usuarios/eliminarusuario/"+memberid+"?");
+                    message = rc.executeDelete("http://192.168.0.36:8084/scrumRestfinal/webresources/org.scrumrestfinal.entities.usuarios/eliminarusuario/"+memberid+"?");
 
                     if (message.equals("")){
                         Toast.makeText(VentanaEditarUsu.this,"No se pudo eliminar el usuario seleccionado", Toast.LENGTH_SHORT).show();
@@ -167,103 +168,5 @@ public class VentanaEditarUsu extends Activity implements OnClickListener {
         startActivity(home_intent);
     }
 
-    public String executePut(String targetURL,String urlParameters) {
-        int timeout=15000;
-        URL url;
-        HttpURLConnection connection = null;
-        try {
-            // Create connection
-
-            url = new URL(targetURL);
-            connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("PUT");
-            connection.setRequestProperty("Content-Type","application/json");
-
-
-
-            connection.setUseCaches(false);
-            connection.setDoInput(true);
-            connection.setDoOutput(true);
-            connection.setConnectTimeout(timeout);
-            connection.setReadTimeout(timeout);
-
-            // Send request
-            DataOutputStream wr = new DataOutputStream(
-                    connection.getOutputStream());
-            wr.writeBytes(urlParameters);
-            wr.flush();
-            wr.close();
-
-            // Get Response
-            InputStream is = connection.getInputStream();
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-            String line;
-            StringBuffer response = new StringBuffer();
-            while ((line = rd.readLine()) != null) {
-                response.append(line);
-                response.append('\r');
-            }
-            rd.close();
-            String res = response.toString();
-            return res;
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-
-            if (connection != null) {
-                connection.disconnect();
-            }
-        }
-        return null;
-    }
-
-    public String executeDelete(String targetURL) {
-        int timeout=15000;
-        URL url;
-        HttpURLConnection connection = null;
-        try {
-            // Create connection
-
-            url = new URL(targetURL);
-            connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("DELETE");
-            //connection.setRequestProperty("Content-Type","application/json");
-
-
-/*
-            connection.setUseCaches(false);
-            connection.setDoInput(true);
-            connection.setDoOutput(true);
-            connection.setConnectTimeout(timeout);
-            connection.setReadTimeout(timeout);
-*/
-
-
-            // Get Response
-            InputStream is = connection.getInputStream();
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-            String line;
-            StringBuffer response = new StringBuffer();
-            while ((line = rd.readLine()) != null) {
-                response.append(line);
-                response.append('\r');
-            }
-            rd.close();
-            String res = response.toString();
-            return res;
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-
-            if (connection != null) {
-                connection.disconnect();
-            }
-        }
-        return null;
-    }
 
 }

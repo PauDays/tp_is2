@@ -37,6 +37,8 @@ public class windowOnlyModify extends AppCompatActivity implements View.OnClickL
         Intent nuevoIntent = getIntent();
         int idUsuario = nuevoIntent.getIntExtra("idUsuario", 0);
         String personaJson=nuevoIntent.getStringExtra("personaJson");
+
+
         et1 = (EditText) findViewById(R.id.et_nombre);
         et2 = (EditText) findViewById(R.id.et_apellido);
         et3 = (EditText) findViewById(R.id.et_username);
@@ -46,6 +48,8 @@ public class windowOnlyModify extends AppCompatActivity implements View.OnClickL
 
         btnActualizar = (Button) findViewById(R.id.btnActualizar);
         try {
+            //esta parte lo que hace es tomar los datos de la persona usuequipo que se logueó
+            //que recuperamos en personaJson para mostrar en la ventana y que solo pueda editar
             JSONObject ps=new JSONObject(personaJson);
             // resultRow.setId_usuario(message.getInt("idUsuario"));
             et1.setText(ps.getString("nombre"));
@@ -53,6 +57,8 @@ public class windowOnlyModify extends AppCompatActivity implements View.OnClickL
             et3.setText(ps.getString("usuario"));
             et4.setText(ps.getString("mail"));
             et5.setText(ps.getString("contrasenha"));
+            //en general guardo el nombre de usuario que tenía al comienzo en caso
+            //de que quiera cambiar su nombre de usuario
             general=ps.getString("usuario");
 
             btnActualizar.setOnClickListener(this);
@@ -91,9 +97,10 @@ public class windowOnlyModify extends AppCompatActivity implements View.OnClickL
                 }
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                 StrictMode.setThreadPolicy(policy);
+                RestCalling rc=new RestCalling();
 
                 try {
-                    message = executePut("http://192.168.0.36:8084/scrumRestfinal/webresources/org.scrumrestfinal.entities.usuarios/editarusuario/"+general+"?", loginParams.toString());
+                    message = rc.executePut("http://192.168.0.36:8084/scrumRestfinal/webresources/org.scrumrestfinal.entities.usuarios/editarusuario/"+general+"?", loginParams.toString());
                     if (message.equals("")){
                         Toast.makeText(windowOnlyModify.this,"No se pudo modificar al usuario seleccionado", Toast.LENGTH_SHORT).show();
 
@@ -126,56 +133,5 @@ public class windowOnlyModify extends AppCompatActivity implements View.OnClickL
         startActivity(home_intent);
     }
 
-    public String executePut(String targetURL,String urlParameters) {
-        int timeout=15000;
-        URL url;
-        HttpURLConnection connection = null;
-        try {
-            // Create connection
-
-            url = new URL(targetURL);
-            connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("PUT");
-            connection.setRequestProperty("Content-Type","application/json");
-
-
-
-            connection.setUseCaches(false);
-            connection.setDoInput(true);
-            connection.setDoOutput(true);
-            connection.setConnectTimeout(timeout);
-            connection.setReadTimeout(timeout);
-
-            // Send request
-            DataOutputStream wr = new DataOutputStream(
-                    connection.getOutputStream());
-            wr.writeBytes(urlParameters);
-            wr.flush();
-            wr.close();
-
-            // Get Response
-            InputStream is = connection.getInputStream();
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-            String line;
-            StringBuffer response = new StringBuffer();
-            while ((line = rd.readLine()) != null) {
-                response.append(line);
-                response.append('\r');
-            }
-            rd.close();
-            String res = response.toString();
-            return res;
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-
-            if (connection != null) {
-                connection.disconnect();
-            }
-        }
-        return null;
-    }
 
 }

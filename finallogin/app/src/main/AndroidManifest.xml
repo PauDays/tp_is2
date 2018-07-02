@@ -26,8 +26,9 @@
         <activity android:name=".VentanaCrearUsu" />
         <activity android:name=".windowSeeUser" />
         <activity android:name=".ModuloTareas" />
-        <activity android:name=".ModuloTareasByUser" />
-        <activity android:name=".windowOnlyModify"></activity>
+        <activity android:name=".Tareas" />
+        <activity android:name=".windowOnlyModify" />
+        <activity android:name=".ModuloTareasByUser"></activity>
     </application>
 
 </manifest>

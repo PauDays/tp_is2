@@ -60,6 +60,7 @@ public class VentanaCrearUsu extends AppCompatActivity {
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
                 StrictMode.setThreadPolicy(policy);
+                RestCalling rc=new RestCalling();
 
                 try {
                     message = executePost("http://192.168.0.36:8084/scrumRestfinal/webresources/org.scrumrestfinal.entities.usuarios/adduser", loginParams.toString());
@@ -67,13 +68,11 @@ public class VentanaCrearUsu extends AppCompatActivity {
                     if (message.equals("")){
                         Toast.makeText(VentanaCrearUsu.this,"FAILED ADD USER 1", Toast.LENGTH_SHORT).show();
 
-                    }
-                    if(message.equalsIgnoreCase("false")){
-                        Toast.makeText(VentanaCrearUsu.this,"FAILED ADD USER 2", Toast.LENGTH_LONG).show();
+
 
                     }else{
 
-                        Toast.makeText(VentanaCrearUsu.this,"Usuario agregado", Toast.LENGTH_LONG).show();
+                        Toast.makeText(VentanaCrearUsu.this,message, Toast.LENGTH_LONG).show();
 
                        Intent main = new Intent(VentanaCrearUsu.this, windowSeeUser.class)
                         .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

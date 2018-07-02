@@ -10,7 +10,7 @@ android:padding="10dp">
     android:id="@+id/btnAgregarMiembro"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:text="Agregar miembro" />
+    android:text="Agregar Usuario" />
 
 <ListView
     android:id="@+id/listViewMiembros"
