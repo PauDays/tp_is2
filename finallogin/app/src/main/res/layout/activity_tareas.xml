@@ -61,19 +61,22 @@
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Insertar"/>
+            android:text="Insertar"
+            android:icon="@drawable/agregar"/>
         <Button
             android:id="@+id/btn_editar"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Editar"/>
+            android:text="Editar"
+            android:icon="@drawable/modificar"/>
         <Button
             android:id="@+id/btn_eliminar"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Borrar"/>
+            android:text="Borrar"
+            android:icon="@drawable/eliminar"/>
     </LinearLayout>
 
 

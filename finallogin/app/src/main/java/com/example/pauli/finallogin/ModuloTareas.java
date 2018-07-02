@@ -60,7 +60,7 @@ public class ModuloTareas extends AppCompatActivity implements View.OnClickListe
         System.out.println("+++++++++++++++++++++++++++++++++++++"+us);
         listView = (ListView) findViewById(R.id.list_tareas);
         arrTareas = new ArrayList<Tareas>();
-        String resultado = executeGET();
+        String resultado = executeTareasGET();
         Gson gson = new Gson();
         JsonArray task = gson.fromJson(resultado, JsonArray.class);
         for (int i = 0; i <task.size (); i ++) {
@@ -129,29 +129,29 @@ public class ModuloTareas extends AppCompatActivity implements View.OnClickListe
                 //Toast.makeText(this, "Clic en insertar", Toast.LENGTH_SHORT).show();
                 Toast.makeText(ModuloTareas.this, "Iniciando registro", Toast.LENGTH_SHORT).show();
                 try {
-                    mensaje = executePOST();
+                    mensaje = executeTareasPOST();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Spinner spinner = (Spinner) findViewById(R.id.planets_spinner);
+
                 System.out.println("Entra onClic+++"+mensaje);
                 myAdapter.notifyDataSetChanged();
                 Toast .makeText(ModuloTareas.this, mensaje, Toast.LENGTH_SHORT).show();
-                spinner.setAdapter(myAdapter);
+
                 break;
             case R.id.btn_editar:
                 try {
 
                     Tareas tem = new Tareas();
                     tem.setNombreUs(editTextNombre.getText().toString());
-                    tem.setIdUserEditor(Integer.parseInt(editTextIdUsuarioCreador.getText().toString()));
-                    tem.setIdUserCreador(Integer.parseInt(editTextIdUsuarioEditor.getText().toString()));
+                    tem.setIdUserCreador(Integer.parseInt(editTextIdUsuarioCreador.getText().toString()));
+                    tem.setIdUserEditor(Integer.parseInt(editTextIdUsuarioEditor.getText().toString()));
                     tem.setEstado(editTextEstado.getText().toString());
                     tem.setIdSprint(Integer.parseInt(editTextIdSprint.getText().toString()));
 
                     System.out.println("****************Id: "+ id_e );
 
-                    mensaje = executePUT(tem, arrTareas.get(id_e).getIdUS());
+                    mensaje = executeTareasPUT(tem, arrTareas.get(id_e).getIdUS());
                     if (mensaje.contains("Actualizado")){
                         arrTareas.get(id_e).setNombreUs(tem.getNombreUs());
                         arrTareas.get(id_e).setIdUserEditor(tem.getIdUserEditor());
@@ -163,7 +163,6 @@ public class ModuloTareas extends AppCompatActivity implements View.OnClickListe
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                id_e = -1;
 
                 myAdapter.notifyDataSetChanged();
                 Toast.makeText(ModuloTareas.this, mensaje, Toast.LENGTH_SHORT).show();
@@ -185,14 +184,13 @@ public class ModuloTareas extends AppCompatActivity implements View.OnClickListe
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                id_e = -1;
                 myAdapter.notifyDataSetChanged();
                 Toast.makeText(ModuloTareas.this, "Eliminado", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
 
-    public String executeGET() {
+    public String executeTareasGET() {
         int timeout=15000;
         String url;
         HttpURLConnection connection = null;
@@ -238,7 +236,7 @@ public class ModuloTareas extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private String executePOST() throws IOException {
+    private String executeTareasPOST() throws IOException {
         Tareas tem = new Tareas();
         tem.setNombreUs(editTextNombre.getText().toString());
         tem.setIdUserCreador(Integer.parseInt(editTextIdUsuarioCreador.getText().toString().trim()));
@@ -287,7 +285,7 @@ public class ModuloTareas extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private String executePUT(Tareas tem, int id) throws IOException {
+    private String executeTareasPUT(Tareas tem, int id) throws IOException {
 
         String spockAsJson = new Gson().toJson(tem);
 

@@ -120,8 +120,9 @@ public class ModuloTareasByUser extends AppCompatActivity implements View.OnClic
 
                     Tareas tem = new Tareas();
                     tem.setNombreUs(editTextNombre.getText().toString());
-                    tem.setIdUserEditor(Integer.parseInt(editTextIdUsuarioCreador.getText().toString()));
-                    tem.setIdUserCreador(Integer.parseInt(editTextIdUsuarioEditor.getText().toString()));
+                    tem.setIdUserCreador(Integer.parseInt(editTextIdUsuarioCreador.getText().toString()));
+                    System.out.println("222222222222222222+++"+editTextIdUsuarioCreador.getText().toString()+"-*-*-*-*"+editTextIdUsuarioEditor.getText().toString());
+                    tem.setIdUserEditor(Integer.parseInt(editTextIdUsuarioEditor.getText().toString()));
                     tem.setEstado(editTextEstado.getText().toString());
                     tem.setIdSprint(Integer.parseInt(editTextIdSprint.getText().toString()));
 
