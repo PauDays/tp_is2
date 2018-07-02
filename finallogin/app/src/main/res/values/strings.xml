@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">finallogin</string>
+    <string name="app_name">Gestion De Proyectos</string>
     <string name="String_username">Username</string>
     <string name="string_password">Password</string>
     <string name="string_login">Login</string>
